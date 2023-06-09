@@ -180,7 +180,7 @@ namespace MyLibraries.MySystemLib.Classes
         /// <param name="list">Поточний список</param>
         /// <param name="index">Початковий індекс</param>
         /// <param name="count">Кількість елементів підсписку. Якщо count = 0, тоді зчитування елементів з list буде відбуватися до кінця</param>
-        static void GetSublist<T>(ref List<T> sublist, List<T> list, int index = 0, int count = 0)
+        static public void GetSublist<T>(ref List<T> sublist, List<T> list, int index = 0, int count = 0)
         {
             #region Items
             int countList = list.Count;
