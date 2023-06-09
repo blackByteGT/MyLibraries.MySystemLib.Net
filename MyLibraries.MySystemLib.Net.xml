@@ -1,0 +1,582 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>MyLibraries.MySystemLib.Net</name>
+    </assembly>
+    <members>
+        <member name="T:MyLibraries.MySystemLib.Classes.MyArray">
+            <summary>
+            Масив
+            </summary>
+        </member>
+        <member name="M:MyLibraries.MySystemLib.Classes.MyArray.Add``1(``0[]@,``0)">
+            <summary>
+            Добавити значення в масив у кінець
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="array">Поточний масив</param>
+            <param name="newValue">Нове значення</param>
+        </member>
+        <member name="M:MyLibraries.MySystemLib.Classes.MyArray.Add``1(``0[]@,``0,System.Int32)">
+            <summary>
+            Добавити значення в масив по заданому індексу
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="array">Поточний масив</param>
+            <param name="newValue">Нове значення</param>
+            <param name="index">Індекс нового значення. Якщо менше за 0 або більше за кількість значень в списку - добавляється в кінець</param>
+        </member>
+        <member name="T:MyLibraries.MySystemLib.Classes.MyChar">
+            <summary>
+            Символ
+            </summary>
+        </member>
+        <member name="M:MyLibraries.MySystemLib.Classes.MyChar.CheckSymbol(System.Char,System.Boolean,System.Boolean,System.Boolean)">
+            <summary>
+            Перевірити символ
+            </summary>
+            <param name="currentSymbol">Поточний символ</param>
+            <param name="checkByNumbers">Перевірити по числам</param>
+            <param name="checkByEnglishLowercaseLetters">Перевірити по англійським літерам нижнього регістру</param>
+            <param name="checkByEnglishUppercaseLetters">Перевірити по англійським літерам верхнього регістру</param>
+            <returns>true - символ входить у задані симоли, false - символ не входить у задані симоли</returns>
+        </member>
+        <member name="M:MyLibraries.MySystemLib.Classes.MyChar.CheckSymbol(System.Char,System.Boolean,System.Boolean)">
+            <summary>
+            Перевірити символ
+            </summary>
+            <param name="currentSymbol">Поточний символ</param>
+            <param name="checkByNumbers">Перевірити по числам</param>
+            <param name="checkByEnglishLetters">Перевірити по англійським літерам</param>
+            <returns>true - символ входить у задані симоли, false - символ не входить у задані симоли</returns>
+        </member>
+        <member name="M:MyLibraries.MySystemLib.Classes.MyChar.CheckByNumbers(System.Char)">
+            <summary>
+            Перевірити символ по числам
+            </summary>
+            <param name="currentSymbol">Поточний символ</param>
+            <returns>true - поточний символ це число, false - поточний символ це не число</returns>
+        </member>
+        <member name="M:MyLibraries.MySystemLib.Classes.MyChar.CheckByEnglishLetters(System.Char)">
+            <summary>
+            Перевірити символ по англійським літерам
+            </summary>
+            <param name="currentSymbol">Поточний символ</param>
+            <returns>true - поточний символ це англійська літера, false - поточний символ це не англійська літера</returns>
+        </member>
+        <member name="M:MyLibraries.MySystemLib.Classes.MyChar.CheckByEnglishLowercaseLetters(System.Char)">
+            <summary>
+            Перевірити символ по малим англійським літерам
+            </summary>
+            <param name="currentSymbol">Поточний символ</param>
+            <returns>true - поточний символ це мала англійська літера, false - поточний символ це не мала англійська літера</returns>
+        </member>
+        <member name="M:MyLibraries.MySystemLib.Classes.MyChar.CheckByEnglishUppercaseLetters(System.Char)">
+            <summary>
+            Перевірити символ по великим англійським літерам
+            </summary>
+            <param name="currentSymbol">Поточний символ</param>
+            <returns>true - поточний символ це велика англійська літера, false - поточний символ це не велика англійська літера</returns>
+        </member>
+        <member name="T:MyLibraries.MySystemLib.Classes.MyDecimal">
+            <summary>
+            Десяткове число з плаваючою комою
+            </summary>
+        </member>
+        <member name="F:MyLibraries.MySystemLib.Classes.MyDecimal.DefaultListSeparators">
+            <summary>
+            Список розподілювачів за замовчуванням
+            </summary>
+        </member>
+        <member name="M:MyLibraries.MySystemLib.Classes.MyDecimal.Parse(System.Decimal@,System.String)">
+            <summary>
+            Перетворити текст на число
+            </summary>
+            <param name="number">Поточне число</param>
+            <param name="numberToString">Текст</param>
+            <returns>true - вдалося перетворити, false - не вдалося перетворити</returns>
+        </member>
+        <member name="M:MyLibraries.MySystemLib.Classes.MyDecimal.CheckParse(System.String)">
+            <summary>
+            Перевірити чи можливе перетворення тексту на число
+            </summary>
+            <param name="decimalToString">Текст</param>
+            <returns>true - вдалося перетворити, false - не вдалося перетворити</returns>
+        </member>
+        <member name="M:MyLibraries.MySystemLib.Classes.MyDecimal.CheckPrecision(System.Decimal,System.Decimal)">
+            <summary>
+            Перевірити точність числа
+            </summary>
+            <param name="checkNumber">Число для перевірки</param>
+            <param name="referenceNumber">Еталонне число</param>
+            <returns>true - число коректне, false - число не коректне</returns>
+        </member>
+        <member name="M:MyLibraries.MySystemLib.Classes.MyDecimal.SetPrecision(System.Decimal@,System.Decimal)">
+            <summary>
+            Встановити точність
+            </summary>
+            <param name="number">Поточне число</param>
+            <param name="referenceNumber">Еталонне число</param>
+        </member>
+        <member name="M:MyLibraries.MySystemLib.Classes.MyDecimal.SetPrecision(System.Decimal@,System.Int32,System.Collections.Generic.List{System.String})">
+            <summary>
+            Встановити точність
+            </summary>
+            <param name="number">Поточне число</param>
+            <param name="precision">Точність після коми</param>
+            <param name="listSeparators">Список розділювачів</param>
+        </member>
+        <member name="M:MyLibraries.MySystemLib.Classes.MyDecimal.SetPrecision(System.Decimal@,System.Int32)">
+            <summary>
+            Встановити точність
+            </summary>
+            <param name="number">Поточне число</param>
+            <param name="precision">Точність після коми</param>
+        </member>
+        <member name="M:MyLibraries.MySystemLib.Classes.MyDecimal.GetPrecision(System.Int32@,System.String,System.Collections.Generic.List{System.String})">
+            <summary>
+            Отримати точність числа
+            </summary>
+            <param name="precision">Поточна точність</param>
+            <param name="numberToString">Число у вигляді рядка</param>
+            <param name="listSeparators">Список розділювачів</param>
+        </member>
+        <member name="M:MyLibraries.MySystemLib.Classes.MyDecimal.GetPrecision(System.Int32@,System.Decimal,System.Collections.Generic.List{System.String})">
+            <summary>
+            Отримати точність числа
+            </summary>
+            <param name="precision">Поточна точність</param>
+            <param name="number">Число у вигляді рядка</param>
+            <param name="listSeparators">Список розділювачів</param>
+        </member>
+        <member name="M:MyLibraries.MySystemLib.Classes.MyDecimal.GetPrecision(System.Int32@,System.Decimal)">
+            <summary>
+            Отримати точність числа
+            </summary>
+            <param name="precision">Поточна точність</param>
+            <param name="number">Число у вигляді рядка</param>
+        </member>
+        <member name="M:MyLibraries.MySystemLib.Classes.MyDecimal.GetDigit(System.Int32@,System.String,System.Collections.Generic.List{System.String})">
+            <summary>
+            Отримати розрядність числа
+            </summary>
+            <param name="digit">Поточна розрядність</param>
+            <param name="numberToString">Число у вигляді рядка</param>
+            <param name="listSeparators">Список розділювачів</param>
+        </member>
+        <member name="M:MyLibraries.MySystemLib.Classes.MyDecimal.GetDigit(System.Int32@,System.Decimal,System.Collections.Generic.List{System.String})">
+            <summary>
+            Отримати розрядність числа
+            </summary>
+            <param name="digit">Поточна розрядність</param>
+            <param name="number">Число</param>
+            <param name="listSeparators">Список розділювачів</param>
+        </member>
+        <member name="M:MyLibraries.MySystemLib.Classes.MyDecimal.GetDigit(System.Int32@,System.Decimal)">
+            <summary>
+            Отримати розрядність числа
+            </summary>
+            <param name="digit">Поточна розрядність</param>
+            <param name="number">Число</param>
+        </member>
+        <member name="M:MyLibraries.MySystemLib.Classes.MyDecimal.TakeFractionalPart(System.Decimal@,System.Collections.Generic.List{System.String})">
+            <summary>
+            Забрати дробову частину
+            </summary>
+            <param name="number">Поточне число</param>
+            <param name="listSeparators">Список розділювачів</param>
+        </member>
+        <member name="M:MyLibraries.MySystemLib.Classes.MyDecimal.TakeFractionalPart(System.Decimal@)">
+            <summary>
+            Забрати дробову частину. Як список розподілювачів буде використано MyDecimal.DefaultListSeparators
+            </summary>
+            <param name="number">Поточне число</param>
+        </member>
+        <member name="M:MyLibraries.MySystemLib.Classes.MyDecimal.TakeExtraZerosFractionalPart(System.Decimal@)">
+            <summary>
+            Забрати зайві нулі з дробової частини числа
+            </summary>
+            <param name="number">Поточне число</param>
+        </member>
+        <member name="T:MyLibraries.MySystemLib.Classes.MyException">
+            <summary>
+            Виключення
+            </summary>
+        </member>
+        <member name="P:MyLibraries.MySystemLib.Classes.MyException.MemberName">
+            <summary>
+            Назва класу
+            </summary>
+        </member>
+        <member name="P:MyLibraries.MySystemLib.Classes.MyException.NumberLine">
+            <summary>
+            Номер рядка коду
+            </summary>
+        </member>
+        <member name="P:MyLibraries.MySystemLib.Classes.MyException.FilePath">
+            <summary>
+            Шлях до файлу
+            </summary>
+        </member>
+        <member name="M:MyLibraries.MySystemLib.Classes.MyException.#ctor(System.Boolean,System.String,System.String,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="getFullFilePath">true - отримати повний шлях filePath, false - отримати скорочений шлях filePat</param>
+            <param name="sourceMemberName"></param>
+            <param name="sourceFilePath"></param>
+            <param name="sourceLineNumber"></param>
+        </member>
+        <member name="T:MyLibraries.MySystemLib.Classes.MyList">
+            <summary>
+            Список
+            </summary>
+        </member>
+        <member name="M:MyLibraries.MySystemLib.Classes.MyList.Add``1(System.Collections.Generic.List{``0}@,``0,System.Int32)">
+            <summary>
+            Добавити значення в List
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="list">Поточний List</param>
+            <param name="newValue">Нове значення</param>
+            <param name="index">Індекс нового значення. Якщо менше за 0 або більше за кількість значень в списку - добавляється в кінець</param>
+        </member>
+        <member name="M:MyLibraries.MySystemLib.Classes.MyList.Add``1(System.Collections.Generic.List{``0}@,System.Collections.Generic.List{``0},System.Int32)">
+            <summary>
+            Добавити в список значення з іншого списку
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="currentList">Поточний список</param>
+            <param name="addList">Додатковий список</param>
+            <param name="index">Індекс додавання</param>
+        </member>
+        <member name="M:MyLibraries.MySystemLib.Classes.MyList.Add``1(System.Collections.Generic.List{``0}@,System.Collections.Generic.List{System.Collections.Generic.List{``0}},System.Int32)">
+            <summary>
+            Добавити список списків в список
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="currentList">Поточний список</param>
+            <param name="addArrayList">Список списків</param>
+            <param name="index">Індекс додавання</param>
+        </member>
+        <member name="M:MyLibraries.MySystemLib.Classes.MyList.Replace``1(System.Collections.Generic.List{``0}@,``0,System.Int32)">
+            <summary>
+            Замінити значення в списку за індексом
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="list">Поточний список</param>
+            <param name="newValue">Нове значення</param>
+            <param name="index">Індекс значення. Якщо значення за велике - дія не виконується</param>
+        </member>
+        <member name="M:MyLibraries.MySystemLib.Classes.MyList.Remove``1(System.Collections.Generic.List{``0}@,System.Int32,System.Int32)">
+            <summary>
+            Видалити елемент(-и) за вказаним індексом. Видалення з primaryIndex по finalIndex
+            </summary>
+            <param name="list">Поточний список</param>
+            <param name="primaryIndex">Початковий індекс</param>
+            <param name="finalIndex">Кінцевий індекс. Якщо 0 finalIndex = primaryIndex</param>
+        </member>
+        <member name="M:MyLibraries.MySystemLib.Classes.MyList.RemoveDuplicates``1(System.Collections.Generic.List{``0}@)">
+            <summary>
+            Видалити дублікати
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="list">Поточний список</param>
+        </member>
+        <member name="M:MyLibraries.MySystemLib.Classes.MyList.GetSublist``1(System.Collections.Generic.List{``0}@,System.Collections.Generic.List{``0},System.Int32,System.Int32)">
+            <summary>
+            Отримати підсписок з списку
+            </summary>
+            <param name="sublist">Поточний підсписок</param>
+            <param name="list">Поточний список</param>
+            <param name="index">Початковий індекс</param>
+            <param name="count">Кількість елементів підсписку. Якщо count = 0, тоді зчитування елементів з list буде відбуватися до кінця</param>
+        </member>
+        <member name="M:MyLibraries.MySystemLib.Classes.MyList.GetIndexValue``1(System.Int32@,System.Collections.Generic.List{``0},``0)">
+            <summary>
+            Отримати індекс значення в списку. Якщо значення в списку не знайдено, значення параметра currentIndex не змнінюється
+            </summary>
+            <param name="currentIndex">Поточний індекс</param>
+            <param name="list">Список</param>
+            <param name="value">Значення</param>
+        </member>
+        <member name="M:MyLibraries.MySystemLib.Classes.MyList.GetEnglishLowercaseLetters(System.Collections.Generic.List{System.String}@)">
+            <summary>
+            Отримати список англійських літер нижнього регістру
+            </summary>
+            <param name="englishLowercaseLetters">Поточний список</param>
+        </member>
+        <member name="M:MyLibraries.MySystemLib.Classes.MyList.GetEnglishUppercaseLetters(System.Collections.Generic.List{System.String}@)">
+            <summary>
+            Отримати список англійських літер верхнього регістру регістру
+            </summary>
+            <param name="englishUppercaseLetters">Поточний список</param>
+        </member>
+        <member name="M:MyLibraries.MySystemLib.Classes.MyList.GetEnglishLetters(System.Collections.Generic.List{System.String}@)">
+            <summary>
+            Отримати список всіх англійських літер
+            </summary>
+            <param name="englishLetters">Поточний список</param>
+        </member>
+        <member name="M:MyLibraries.MySystemLib.Classes.MyList.GetNumbers(System.Collections.Generic.List{System.String}@)">
+            <summary>
+            Отримати список цифр 0-9
+            </summary>
+            <param name="numbers">Поточний список</param>
+        </member>
+        <member name="M:MyLibraries.MySystemLib.Classes.MyList.CheckValueForEntryInList``1(``0,System.Collections.Generic.List{``0})">
+            <summary>
+            Перевірити входження значення в список 
+            </summary>
+            <param name="value">Значення для пошуку</param>
+            <param name="listValues">Список значень</param>
+            <returns>true - значення знайдено в списку, false - значення не знайдено в списку</returns>
+        </member>
+        <member name="M:MyLibraries.MySystemLib.Classes.MyList.CheckForIllegalValueInList``1(System.Collections.Generic.List{``0},System.Collections.Generic.List{``0})">
+            <summary>
+            Перевірити на недозволені рядки в списку
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="listValue">Поточний список</param>
+            <param name="allowedValue">Список дозволених значень</param>
+            <returns>true - недозволене значення знайдено, false - недозволене значення не знайдено</returns>
+        </member>
+        <member name="M:MyLibraries.MySystemLib.Classes.MyList.CheckIndexForOccurrence``1(System.Collections.Generic.List{``0},System.Int32)">
+            <summary>
+            Перевірити індекс на наявність у списку
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="list">Поточний список</param>
+            <param name="index">Поточний індекс</param>
+            <returns>true - індекс входить у список, false - індекс не входить у список</returns>
+        </member>
+        <member name="M:MyLibraries.MySystemLib.Classes.MyList.Sort``2(System.Collections.Generic.List{``0}@,System.Func{``0,``1},System.Boolean)">
+            <summary>
+            Відсортувати. Використовується для списків з декількома типами
+            </summary>
+            <typeparam name="T"></typeparam>
+            <typeparam name="TKey">Ключ для сортування</typeparam>
+            <param name="list">Список значень</param>
+            <param name="keySelector">Ключ для сортування</param>
+            <param name="byGrowth">true - сортувати по зростанню, false - сортувати по спаданню</param>
+        </member>
+        <member name="T:MyLibraries.MySystemLib.Classes.MyMath">
+            <summary>
+            Математичні функції
+            </summary>
+        </member>
+        <member name="T:MyLibraries.MySystemLib.Classes.MyMath.MethodForCatchParse">
+            <summary>
+            Метод який буде виконуватися при виключенні парсингу типу
+            </summary>
+        </member>
+        <member name="T:MyLibraries.MySystemLib.Classes.MyMath.typeof">
+            <summary>
+            Перерахування типів 
+            </summary>
+        </member>
+        <member name="M:MyLibraries.MySystemLib.Classes.MyMath.Max(System.Int32@,System.Int32,System.Int32)">
+            <summary>
+            Отримати максимальне значення
+            </summary>
+            <param name="currentValue">Поточне значення</param>
+            <param name="value1">Значення 1</param>
+            <param name="value2">Значення 2</param>
+        </member>
+        <member name="M:MyLibraries.MySystemLib.Classes.MyMath.GetTypeofTemplate``1(MyLibraries.MySystemLib.Classes.MyMath.typeof@)">
+            <summary>
+            Отримати typeof шаблону
+            </summary>
+            <typeparam name="T">Шаблон</typeparam>
+            <param name="currentTypeof">Поточний typeof</param>
+        </member>
+        <member name="M:MyLibraries.MySystemLib.Classes.MyMath.CheckForEquality``1(``0,``0,System.String)">
+            <summary>
+            Перевірити на рівність шаблонні значення
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="value1">Значення 1</param>
+            <param name="value2">Значення 2</param>
+            <param name="symbolEquality">Символ рівності</param>
+            <returns></returns>
+        </member>
+        <member name="T:MyLibraries.MySystemLib.Classes.MyString">
+            <summary>
+            Рядок
+            </summary>
+        </member>
+        <member name="F:MyLibraries.MySystemLib.Classes.MyString.symbolForFormat">
+            <summary>
+            Символи для роботи з форматом рядка
+            </summary>
+        </member>
+        <member name="F:MyLibraries.MySystemLib.Classes.MyString.FormatByTelephoneNumber">
+            <summary>
+            Формат для номера телефона
+            </summary>
+        </member>
+        <member name="F:MyLibraries.MySystemLib.Classes.MyString.FormatByNumberCard">
+            <summary>
+            Формат для номеру банківської карти
+            </summary>
+        </member>
+        <member name="M:MyLibraries.MySystemLib.Classes.MyString.ToFixStringFromDB(System.String@)">
+            <summary>
+            Виправити рядок з БД
+            </summary>
+            <param name="str">Поточний рядок</param>
+        </member>
+        <member name="M:MyLibraries.MySystemLib.Classes.MyString.SetLength(System.String@,System.Int32)">
+            <summary>
+            Встановити довжину рядка
+            </summary>
+            <param name="str">Поточний рядок</param>
+            <param name="length">Вказана довжина</param>
+        </member>
+        <member name="M:MyLibraries.MySystemLib.Classes.MyString.GetWithFormat(System.String@,System.Int32,System.String,System.String)">
+            <summary>
+            Отримати рядок з відповідним форматом.
+            X/x - поточний спеціальний символ формату
+            Наприклад: str = "0985050836", format = "+38-(XXX)-XXX-XX-XX", length = 0 => +38-(098)-505-08-36
+            </summary>
+            <param name="str">Рядок без формату</param>
+            <param name="format">Формат до якого потрібно привести str. Приклад наведено в описі</param>
+            <param name="formatChar">Спеціальний символ формату</param>
+            <param name="length">Довжина рядка. Якщо 0 - довжина не зміниться</param>
+        </member>
+        <member name="M:MyLibraries.MySystemLib.Classes.MyString.GetWithoutFormat(System.String@,System.Int32,System.String,System.String)">
+            <summary>
+            Отримати рядок без формату.
+            X/x - поточний спеціальний символ формату
+            Наприклад: str = "+38-(098)-505-08-36", format = "+38-(XXX)-XXX-XX-XX", length = 0 => 0985050836
+            </summary>
+            <param name="str">Рядок без формату</param>
+            <param name="format">Формат до якого потрібно привести str. Приклад наведено в описі</param>
+            <param name="formatChar">Спеціальний символ формату</param>
+            <param name="length">Довжина рядка. Якщо 0 - довжина не зміниться</param>
+        </member>
+        <member name="M:MyLibraries.MySystemLib.Classes.MyString.GetSubstring(System.String@,System.String,System.Int32,System.Int32)">
+            <summary>
+            Отримати підрядок з рядка
+            </summary>
+            <param name="substr">Поточний підрядок</param>
+            <param name="str">Поточний рядок</param>
+            <param name="index">Початковий індекс</param>
+            <param name="lenght">Довжина підстроки. Якщо lenght = 0, тоді зчитування символів з str буде відбуватися до кінця</param>
+        </member>
+        <member name="M:MyLibraries.MySystemLib.Classes.MyString.GetSubstrings(System.Collections.Generic.List{System.String}@,System.String,System.Collections.Generic.List{System.String})">
+            <summary>
+            Отримати підрядки з рядка
+            </summary>
+            <param name="substrs">Поточний список підрядків</param>
+            <param name="str">Поточний рядок</param>
+            <param name="strDividers">Рядок розділювачів</param>
+        </member>
+        <member name="M:MyLibraries.MySystemLib.Classes.MyString.GetSubstring(System.String@,System.String,System.String,System.String,System.Boolean,System.Boolean)">
+            <summary>
+            Отримати підрядок з рядка
+            </summary>
+            <param name="substr">Поточний підрядок</param>
+            <param name="str">Поточний рядок</param>
+            <param name="primaryStr">Початковий підрядок</param>
+            <param name="finalStr">Кінцевий підрядок</param>
+            <param name="austerityPrimaryStr"></param>
+            <param name="austerityFinalStr"></param>
+        </member>
+        <member name="M:MyLibraries.MySystemLib.Classes.MyString.GetDeployed(System.String@,System.String)">
+            <summary>
+            Отримати розвернутий рядок
+            </summary>
+            <param name="newStr">Новий рядок</param>
+            <param name="str">Поточний рядок</param>
+        </member>
+        <member name="M:MyLibraries.MySystemLib.Classes.MyString.GetSubstringIndices(System.String,System.String,System.Int32@,System.Int32@)">
+            <summary>
+            Отримати індекси підрядка в рядку
+            </summary>
+            <param name="str">Рядок</param>
+            <param name="substr">Підрядок</param>
+            <param name="firstIndex">Перший індекс</param>
+            <param name="lastIndex">Останній індекс</param>
+        </member>
+        <member name="M:MyLibraries.MySystemLib.Classes.MyString.GetMaximumLengthFromList(System.Collections.Generic.List{System.String},System.Int32@)">
+            <summary>
+            Отримати максимальну довжину значення з списка значень
+            </summary>
+            <param name="listValue">Список значень</param>
+            <param name="maxLength">Поточна максимальна довжина</param>
+        </member>
+        <member name="M:MyLibraries.MySystemLib.Classes.MyString.CheckSubstringInString(System.String,System.String)">
+            <summary>
+            Перевірити на наявність підрядка в рядку
+            </summary>
+            <param name="str">Поточний рядок</param>
+            <param name="substr">Поточний підрядок</param>
+            <returns>true - підрядок входить в рядок,false - не входить</returns>
+        </member>
+        <member name="M:MyLibraries.MySystemLib.Classes.MyString.CheckForFormatInString(System.String,System.String,System.String)">
+            <summary>
+            Перевірити на наявність формату в рядку
+            </summary>
+            <param name="str">Рядок</param>
+            <param name="format">Формат</param>
+            <param name="formatChar">Спеціальний символ формату</param>
+            <returns>true - якщо формат знайдено в рядку, false - якщо формат не знайдено в рядку</returns>
+        </member>
+        <member name="M:MyLibraries.MySystemLib.Classes.MyString.CheckForIllegalSubstringInString(System.String,System.Collections.Generic.List{System.String})">
+            <summary>
+            Перевірити на недозволені підрядки в рядку
+            </summary>
+            <param name="str">Поточний рядок</param>
+            <param name="allowedSubstrs">Список дозволених підрядків</param>
+            <returns>true - недозволений рядок знайдено, false - недозволений рядок не знайдено</returns>
+        </member>
+        <member name="M:MyLibraries.MySystemLib.Classes.MyString.Remove(System.String@,System.Int32,System.Int32)">
+            <summary>
+            Видалити підрядок(-и) за вказаним індексом. Видалення з primaryIndex по finalIndex
+            </summary>
+            <param name="str">Поточний рядок</param>
+            <param name="primaryIndex">Початковий індекс</param>
+            <param name="finalIndex">Кінцевий індекс. Якщо 0 finalIndex = primaryIndex</param>
+        </member>
+        <member name="M:MyLibraries.MySystemLib.Classes.MyString.Remove(System.String@,System.String,System.Boolean)">
+            <summary>
+            Видалити вказаний підрядок
+            </summary>
+            <param name="str">Поточний рядок</param>
+            <param name="substr">Підрядок для видалення</param>
+            <param name="austerity">true - видаляти усі найдені підрядки, false - видаляти перший підрядок</param>
+        </member>
+        <member name="M:MyLibraries.MySystemLib.Classes.MyString.Replace(System.String@,System.Collections.Generic.List{System.String},System.Collections.Generic.List{System.String})">
+            <summary>
+            Замінити список підрядків в рядку. Відповідність між списками значень для заміни та нових значьнь - паралельні
+            </summary>
+            <param name="currentStr">Поточний рядок</param>
+            <param name="listReplaceStr">Список підрядків для заміни</param>
+            <param name="listNewStr">Список нових підрядків</param>
+        </member>
+        <member name="M:MyLibraries.MySystemLib.Classes.MyString.Replace(System.String@,System.Collections.Generic.List{System.ValueTuple{System.String,System.String}})">
+            <summary>
+            Замінити список підрядків у рядку
+            </summary>
+            <param name="currentStr">Поточний рядок</param>
+            <param name="listReplaceActions">Список дій для заміни. replaceStr - підрядок, який необхідно замінити, newValue - новий підрядок</param>
+        </member>
+        <member name="M:MyLibraries.MySystemLib.Classes.MyString.Replace(System.String@,System.String,System.String)">
+            <summary>
+            Замінити підрядок в рядку
+            </summary>
+            <param name="currentStr">Поточний рядок</param>
+            <param name="replaceStr">Підрядок, який необхідно замінити</param>
+            <param name="newValue">Новий підрядок</param>
+        </member>
+        <member name="M:MyLibraries.MySystemLib.Classes.MyString.Replace(System.String@,System.Collections.Generic.List{System.String},System.String)">
+            <summary>
+            Замінити список підрядків в рядку
+            </summary>
+            <param name="currentStr">Поточний рядок</param>
+            <param name="listReplaceStr">Список підрядків для заміни</param>
+            <param name="newValue">Новий підрядок</param>
+        </member>
+    </members>
+</doc>
