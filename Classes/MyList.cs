@@ -174,6 +174,34 @@ namespace MyLibraries.MySystemLib.Classes
 
         #region Get
         /// <summary>
+        /// Отримати підсписок з списку
+        /// </summary>
+        /// <param name="sublist">Поточний підсписок</param>
+        /// <param name="list">Поточний список</param>
+        /// <param name="index">Початковий індекс</param>
+        /// <param name="count">Кількість елементів підсписку. Якщо count = 0, тоді зчитування елементів з list буде відбуватися до кінця</param>
+        static void GetSublist<T>(ref List<T> sublist, List<T> list, int index = 0, int count = 0)
+        {
+            #region Items
+            int countList = list.Count;
+
+            if (index < 0 || index > countList - 1) return;
+
+            if (count == 0)
+            {
+                if (index == 0) { sublist = list; return; }
+                else count = countList;
+            }
+
+            List<T> newSublist = new List<T>();
+            int lengthFromIndex = index + count;
+            #endregion Items
+
+            for (int i = index; i < lengthFromIndex && i < countList; i++) newSublist.Add(list[i]);
+
+            sublist = newSublist;
+        }
+        /// <summary>
         /// Отримати індекс значення в списку. Якщо значення в списку не знайдено, значення параметра currentIndex не змнінюється
         /// </summary>
         /// <param name="currentIndex">Поточний індекс</param>

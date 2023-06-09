@@ -162,17 +162,23 @@ namespace MyLibraries.MySystemLib.Classes
         /// <param name="substr">Поточний підрядок</param>
         /// <param name="str">Поточний рядок</param>
         /// <param name="index">Початковий індекс</param>
-        /// <param name="lenght">Довжина підстроки</param>
+        /// <param name="lenght">Довжина підстроки. Якщо lenght = 0, тоді зчитування символів з str буде відбуватися до кінця</param>
         static public void GetSubstring(ref string substr, string str, int index = 0, int lenght = 0)
         {
+            #region Items
             int lengthStr = str.Length;
 
             if (index < 0 || index > lengthStr - 1) return;
 
-            lenght = lenght == 0 ? lengthStr : lenght;
+            if (lenght == 0)
+            {
+                if (index == 0) { substr = str; return; }
+                else lenght = lengthStr;
+            }
 
             string newSubstr = "";
             int lengthFromIndex = index + lenght;
+            #endregion Items
 
             for (int i = index; i < lengthFromIndex && i < lengthStr; i++) newSubstr += str[i];
 
