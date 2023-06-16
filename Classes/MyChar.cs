@@ -49,9 +49,9 @@ namespace MyLibraries.MySystemLib.Classes
         /// <returns>true - поточний символ це число, false - поточний символ це не число</returns>
         static private bool CheckByNumbers(char currentSymbol)
         {
-            List<string> numbers = default; MyList.GetNumbers(ref numbers);
+            List<char> numbers = default; MyList.GetNumbers(ref numbers);
 
-            return MyList.CheckValueForEntryInList(currentSymbol.ToString(), numbers);
+            return MyList.CheckValueForEntryInList(currentSymbol, numbers);
         }
         /// <summary>
         /// Перевірити символ по англійським літерам
@@ -60,9 +60,9 @@ namespace MyLibraries.MySystemLib.Classes
         /// <returns>true - поточний символ це англійська літера, false - поточний символ це не англійська літера</returns>
         static private bool CheckByEnglishLetters(char currentSymbol)
         {
-            List<string> englishLetters = default; MyList.GetEnglishLetters(ref englishLetters);
+            List<char> englishLetters = default; MyList.GetEnglishLetters(ref englishLetters);
 
-            return MyList.CheckValueForEntryInList(currentSymbol.ToString(), englishLetters);
+            return MyList.CheckValueForEntryInList(currentSymbol, englishLetters);
         }
         /// <summary>
         /// Перевірити символ по малим англійським літерам
@@ -71,9 +71,9 @@ namespace MyLibraries.MySystemLib.Classes
         /// <returns>true - поточний символ це мала англійська літера, false - поточний символ це не мала англійська літера</returns>
         static private bool CheckByEnglishLowercaseLetters(char currentSymbol)
         {
-            List<string> englishLowercaseLetters = default; MyList.GetEnglishLowercaseLetters(ref englishLowercaseLetters);
+            List<char> englishLowercaseLetters = default; MyList.GetEnglishLowercaseLetters(ref englishLowercaseLetters);
 
-            return MyList.CheckValueForEntryInList(currentSymbol.ToString(), englishLowercaseLetters);
+            return MyList.CheckValueForEntryInList(currentSymbol, englishLowercaseLetters);
         }
         /// <summary>
         /// Перевірити символ по великим англійським літерам
@@ -82,9 +82,9 @@ namespace MyLibraries.MySystemLib.Classes
         /// <returns>true - поточний символ це велика англійська літера, false - поточний символ це не велика англійська літера</returns>
         static private bool CheckByEnglishUppercaseLetters(char currentSymbol)
         {
-            List<string> englishUppercaseLetters = default; MyList.GetEnglishUppercaseLetters(ref englishUppercaseLetters);
+            List<char> englishUppercaseLetters = default; MyList.GetEnglishUppercaseLetters(ref englishUppercaseLetters);
 
-            return MyList.CheckValueForEntryInList(currentSymbol.ToString(), englishUppercaseLetters);
+            return MyList.CheckValueForEntryInList(currentSymbol, englishUppercaseLetters);
         }
         #endregion Checks
         #endregion Function

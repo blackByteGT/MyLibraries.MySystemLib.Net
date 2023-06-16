@@ -223,38 +223,43 @@ namespace MyLibraries.MySystemLib.Classes
         /// Отримати список англійських літер нижнього регістру
         /// </summary>
         /// <param name="englishLowercaseLetters">Поточний список</param>
-        static public void GetEnglishLowercaseLetters(ref List<string> englishLowercaseLetters) =>
-            englishLowercaseLetters = new List<string>()
+        static public void GetEnglishLowercaseLetters(ref List<char> englishLowercaseLetters) =>
+            englishLowercaseLetters = new List<char>()
             {
-                "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"
+                'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'
             };
         /// <summary>
         /// Отримати список англійських літер верхнього регістру регістру
         /// </summary>
         /// <param name="englishUppercaseLetters">Поточний список</param>
-        static public void GetEnglishUppercaseLetters(ref List<string> englishUppercaseLetters) =>
-            englishUppercaseLetters = new List<string>()
+        static public void GetEnglishUppercaseLetters(ref List<char> englishUppercaseLetters) =>
+            englishUppercaseLetters = new List<char>()
             {
-                "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"
+                'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'
             };
         /// <summary>
         /// Отримати список всіх англійських літер
         /// </summary>
         /// <param name="englishLetters">Поточний список</param>
-        static public void GetEnglishLetters(ref List<string> englishLetters) =>
-            englishLetters = new List<string>()
-            {
-                "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z",
-                "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"
-            };
+        static public void GetEnglishLetters(ref List<char> englishLetters)
+        {
+            List<char>
+                newEnglishLetters = new List<char>(),
+                currentList = default;
+
+            GetEnglishLowercaseLetters(ref currentList); newEnglishLetters.AddRange(englishLetters);
+            GetEnglishUppercaseLetters(ref currentList); newEnglishLetters.AddRange(englishLetters);
+
+            englishLetters = newEnglishLetters;
+        }
         /// <summary>
         /// Отримати список цифр 0-9
         /// </summary>
         /// <param name="numbers">Поточний список</param>
-        static public void GetNumbers(ref List<string> numbers) =>
-            numbers = new List<string>()
+        static public void GetNumbers(ref List<char> numbers) =>
+            numbers = new List<char>()
             {
-                "0", "1", "2", "3", "4", "5", "6", "7", "8", "9"
+                '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'
             };
         #endregion Get
 

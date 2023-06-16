@@ -1,4 +1,5 @@
 ﻿using System;
+using MyLibraries.MySystemLib.Enums;
 
 namespace MyLibraries.MySystemLib.Classes
 {
@@ -11,76 +12,53 @@ namespace MyLibraries.MySystemLib.Classes
         /// <summary>
         /// Метод який буде виконуватися при виключенні парсингу типу
         /// </summary>
-        public delegate void MethodForCatchParse();
-
-        /// <summary>
-        /// Перерахування типів 
-        /// </summary>
-        public enum @typeof
-        {
-            @other = 0,
-            @object = 1,
-            @char = 2,
-            @string = 3,
-            @int = 4,
-            @double = 5,
-            @float = 6,
-            @decimal = 7
-        }
+        private delegate void MethodForCatchParse();
         #endregion Items
 
         #region Functions
-        /// <summary>
-        /// Отримати максимальне значення
-        /// </summary>
-        /// <param name="currentValue">Поточне значення</param>
-        /// <param name="value1">Значення 1</param>
-        /// <param name="value2">Значення 2</param>
-        static public void Max(ref int currentValue, int value1, int value2) => currentValue = value1 > value2 ? value1 : value2;
-
         #region Gets
         /// <summary>
         /// Отримати typeof шаблону
         /// </summary>
         /// <typeparam name="T">Шаблон</typeparam>
         /// <param name="currentTypeof">Поточний typeof</param>
-        static public void GetTypeofTemplate<T>(ref @typeof currentTypeof)
+        static private void GetTypeofTemplate<T>(ref MyTypeof currentTypeof)
         {
             Type typeT = typeof(T);
 
             if (typeT == typeof(object))
             {
-                currentTypeof = @typeof.@object;
+                currentTypeof = MyTypeof.@object;
                 return;
             }
             if (typeT == typeof(char))
             {
-                currentTypeof = @typeof.@char;
+                currentTypeof = MyTypeof.@char;
                 return;
             }
             if (typeT == typeof(string))
             {
-                currentTypeof = @typeof.@string;
+                currentTypeof = MyTypeof.@string;
                 return;
             }
             if (typeT == typeof(int))
             {
-                currentTypeof = @typeof.@int;
+                currentTypeof = MyTypeof.@int;
                 return;
             }
             if (typeT == typeof(double))
             {
-                currentTypeof = @typeof.@double;
+                currentTypeof = MyTypeof.@double;
                 return;
             }
             if (typeT == typeof(float))
             {
-                currentTypeof = @typeof.@float;
+                currentTypeof = MyTypeof.@float;
                 return;
             }
             if (typeT == typeof(decimal))
             {
-                currentTypeof = @typeof.@decimal;
+                currentTypeof = MyTypeof.@decimal;
                 return;
             }
         }
@@ -97,314 +75,152 @@ namespace MyLibraries.MySystemLib.Classes
         /// <returns></returns>
         static public bool CheckForEquality<T>(T value1, T value2, string symbolEquality = "==")
         {
-            @typeof typeofT = @typeof.other; GetTypeofTemplate<T>(ref typeofT);
+            MyTypeof typeofT = MyTypeof.other; GetTypeofTemplate<T>(ref typeofT);
 
             switch (typeofT)
             {
-                case @typeof.@char:
+                case MyTypeof.@char:
                     {
+                        #region Items
                         char
                             newValue1 = new char(),
                             newValue2 = new char();
+                        #endregion Items
 
                         newValue1 = char.Parse(value1.ToString()); newValue2 = char.Parse(value2.ToString());
 
                         switch (symbolEquality)
                         {
-                            case "==":
-                                {
-                                    return newValue1 == newValue2;
-                                }
-                            case "!=":
-                                {
-                                    return newValue1 != newValue2;
-                                }
-                            case ">":
-                                {
-                                    return newValue1 > newValue2;
-                                }
-                            case "<":
-                                {
-                                    return newValue1 < newValue2;
-                                }
-                            case ">=":
-                                {
-                                    return newValue1 >= newValue2;
-                                }
-                            case "<=":
-                                {
-                                    return newValue1 <= newValue2;
-                                }
-                            default:
-                                {
-                                    return false;
-                                }
+                            case "==": { return newValue1 == newValue2; }
+                            case "!=": { return newValue1 != newValue2; }
+                            case ">": { return newValue1 > newValue2; }
+                            case "<": { return newValue1 < newValue2; }
+                            case ">=": { return newValue1 >= newValue2; }
+                            case "<=": { return newValue1 <= newValue2; }
+                            default: { return false; }
                         }
                     }
-                case @typeof.@string:
+                case MyTypeof.@string:
                     {
+                        #region Items
                         string
                             newValue1 = default,
                             newValue2 = default;
+                        #endregion Items
 
                         try { newValue1 = value1.ToString(); newValue2 = value2.ToString(); }
                         catch { return false; }
 
                         switch (symbolEquality)
                         {
-                            case "==":
-                                {
-                                    return newValue1 == newValue2;
-                                }
-                            case "!=":
-                                {
-                                    return newValue1 != newValue2;
-                                }
+                            case "==": { return newValue1 == newValue2; }
+                            case "!=": { return newValue1 != newValue2; }
                             case ">":
                                 {
-                                    try
-                                    {
-                                        int
-                                            newInt1 = int.Parse(newValue1),
-                                            newInt2 = int.Parse(newValue2);
-
-                                        return newInt1 > newInt2;
-                                    }
+                                    try {  return int.Parse(newValue1) > int.Parse(newValue2); }
                                     catch
                                     {
-                                        try
-                                        {
-                                            double
-                                                newDouble1 = double.Parse(newValue1),
-                                                newDouble2 = double.Parse(newValue2);
-
-                                            return newDouble1 > newDouble2;
-                                        }
-                                        catch
-                                        {
-
-                                        }
+                                        try { return double.Parse(newValue1) > double.Parse(newValue2); }
+                                        catch { return false; }
                                     }
-
-                                    return false;
                                 }
                             case "<":
                                 {
-                                    try
-                                    {
-                                        int
-                                            newInt1 = int.Parse(newValue1),
-                                            newInt2 = int.Parse(newValue2);
-
-                                        return newInt1 < newInt2;
-                                    }
+                                    try { return int.Parse(newValue1) < int.Parse(newValue2); }
                                     catch
                                     {
-                                        try
-                                        {
-                                            double
-                                                newDouble1 = double.Parse(newValue1),
-                                                newDouble2 = double.Parse(newValue2);
-
-                                            return newDouble1 < newDouble2;
-                                        }
-                                        catch
-                                        {
-
-                                        }
+                                        try { return double.Parse(newValue1) < double.Parse(newValue2); }
+                                        catch { return false; }
                                     }
-
-                                    return false;
                                 }
                             case ">=":
                                 {
-                                    try
-                                    {
-                                        int
-                                            newInt1 = int.Parse(newValue1),
-                                            newInt2 = int.Parse(newValue2);
-
-                                        return newInt1 >= newInt2;
-                                    }
+                                    try { return int.Parse(newValue1) >= int.Parse(newValue2); }
                                     catch
                                     {
-                                        try
-                                        {
-                                            double
-                                                newDouble1 = double.Parse(newValue1),
-                                                newDouble2 = double.Parse(newValue2);
-
-                                            return newDouble1 >= newDouble2;
-                                        }
-                                        catch
-                                        {
-
-                                        }
+                                        try { return double.Parse(newValue1) >= double.Parse(newValue2); }
+                                        catch { return false; }
                                     }
-
-                                    return false;
                                 }
                             case "<=":
                                 {
-                                    try
-                                    {
-                                        int
-                                            newInt1 = int.Parse(newValue1),
-                                            newInt2 = int.Parse(newValue2);
-
-                                        return newInt1 <= newInt2;
-                                    }
+                                    try { return int.Parse(newValue1) <= int.Parse(newValue2); }
                                     catch
                                     {
-                                        try
-                                        {
-                                            double
-                                                newDouble1 = double.Parse(newValue1),
-                                                newDouble2 = double.Parse(newValue2);
-
-                                            return newDouble1 <= newDouble2;
-                                        }
-                                        catch
-                                        {
-
-                                        }
+                                        try { return double.Parse(newValue1) <= double.Parse(newValue2); }
+                                        catch { return false; }
                                     }
-
-                                    return false;
                                 }
-                            default:
-                                {
-                                    return false;
-                                }
+                            default: { return false; }
                         }
                     }
-                case @typeof.@int:
+                case MyTypeof.@int:
                     {
+                        #region Items
                         int
                             newValue1 = default,
                             newValue2 = default;
+                        #endregion Items
 
                         try { newValue1 = int.Parse(value1.ToString()); newValue2 = int.Parse(value2.ToString()); }
                         catch { return false; }
 
                         switch (symbolEquality)
                         {
-                            case "==":
-                                {
-                                    return newValue1 == newValue2;
-                                }
-                            case "!=":
-                                {
-                                    return newValue1 != newValue2;
-                                }
-                            case ">":
-                                {
-                                    return newValue1 > newValue2;
-                                }
-                            case "<":
-                                {
-                                    return newValue1 < newValue2;
-                                }
-                            case ">=":
-                                {
-                                    return newValue1 == newValue2;
-                                }
-                            case "<=":
-                                {
-                                    return newValue1 == newValue2;
-                                }
-                            default:
-                                {
-                                    return false;
-                                }
+                            case "==": { return newValue1 == newValue2; }
+                            case "!=": { return newValue1 != newValue2; }
+                            case ">": { return newValue1 > newValue2; }
+                            case "<": { return newValue1 < newValue2; }
+                            case ">=": { return newValue1 == newValue2; }
+                            case "<=": { return newValue1 == newValue2; }
+                            default: { return false; }
                         }
                     }
-                case @typeof.@double:
+                case MyTypeof.@double:
                     {
+                        #region Items
                         double
                             newValue1 = default,
                             newValue2 = default;
+                        #endregion Items
 
                         try { newValue1 = double.Parse(value1.ToString()); newValue2 = double.Parse(value2.ToString()); }
                         catch { return false; }
 
                         switch (symbolEquality)
                         {
-                            case "==":
-                                {
-                                    return newValue1 == newValue2;
-                                }
-                            case "!=":
-                                {
-                                    return newValue1 != newValue2;
-                                }
-                            case ">":
-                                {
-                                    return newValue1 > newValue2;
-                                }
-                            case "<":
-                                {
-                                    return newValue1 < newValue2;
-                                }
-                            case ">=":
-                                {
-                                    return newValue1 == newValue2;
-                                }
-                            case "<=":
-                                {
-                                    return newValue1 == newValue2;
-                                }
-                            default:
-                                {
-                                    return false;
-                                }
+                            case "==": { return newValue1 == newValue2; }
+                            case "!=": { return newValue1 != newValue2; }
+                            case ">": { return newValue1 > newValue2; }
+                            case "<": { return newValue1 < newValue2; }
+                            case ">=": { return newValue1 == newValue2; }
+                            case "<=": { return newValue1 == newValue2; }
+                            default: { return false; }
                         }
                     }
-                case @typeof.@decimal:
+                case MyTypeof.@decimal:
                     {
+                        #region Items
                         decimal
                             newValue1 = default,
                             newValue2 = default;
+                        #endregion Items
 
                         try { newValue1 = decimal.Parse(value1.ToString()); newValue2 = decimal.Parse(value2.ToString()); }
                         catch { return false; }
 
                         switch (symbolEquality)
                         {
-                            case "==":
-                                {
-                                    return newValue1 == newValue2;
-                                }
-                            case "!=":
-                                {
-                                    return newValue1 != newValue2;
-                                }
-                            case ">":
-                                {
-                                    return newValue1 > newValue2;
-                                }
-                            case "<":
-                                {
-                                    return newValue1 < newValue2;
-                                }
-                            case ">=":
-                                {
-                                    return newValue1 == newValue2;
-                                }
-                            case "<=":
-                                {
-                                    return newValue1 == newValue2;
-                                }
-                            default:
-                                {
-                                    return false;
-                                }
+                            case "==": { return newValue1 == newValue2; }
+                            case "!=": { return newValue1 != newValue2; }
+                            case ">": { return newValue1 > newValue2; }
+                            case "<": { return newValue1 < newValue2; }
+                            case ">=": { return newValue1 == newValue2; }
+                            case "<=": { return newValue1 == newValue2; }
+                            default: { return false; }
                         }
                     }
-                default:
-                    {
-                        return false;
-                    }
+                default: { return false; }
             }
         }
         #endregion Checks
