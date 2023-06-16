@@ -300,25 +300,25 @@
             <param name="list">Список</param>
             <param name="value">Значення</param>
         </member>
-        <member name="M:MyLibraries.MySystemLib.Classes.MyList.GetEnglishLowercaseLetters(System.Collections.Generic.List{System.String}@)">
+        <member name="M:MyLibraries.MySystemLib.Classes.MyList.GetEnglishLowercaseLetters(System.Collections.Generic.List{System.Char}@)">
             <summary>
             Отримати список англійських літер нижнього регістру
             </summary>
             <param name="englishLowercaseLetters">Поточний список</param>
         </member>
-        <member name="M:MyLibraries.MySystemLib.Classes.MyList.GetEnglishUppercaseLetters(System.Collections.Generic.List{System.String}@)">
+        <member name="M:MyLibraries.MySystemLib.Classes.MyList.GetEnglishUppercaseLetters(System.Collections.Generic.List{System.Char}@)">
             <summary>
             Отримати список англійських літер верхнього регістру регістру
             </summary>
             <param name="englishUppercaseLetters">Поточний список</param>
         </member>
-        <member name="M:MyLibraries.MySystemLib.Classes.MyList.GetEnglishLetters(System.Collections.Generic.List{System.String}@)">
+        <member name="M:MyLibraries.MySystemLib.Classes.MyList.GetEnglishLetters(System.Collections.Generic.List{System.Char}@)">
             <summary>
             Отримати список всіх англійських літер
             </summary>
             <param name="englishLetters">Поточний список</param>
         </member>
-        <member name="M:MyLibraries.MySystemLib.Classes.MyList.GetNumbers(System.Collections.Generic.List{System.String}@)">
+        <member name="M:MyLibraries.MySystemLib.Classes.MyList.GetNumbers(System.Collections.Generic.List{System.Char}@)">
             <summary>
             Отримати список цифр 0-9
             </summary>
@@ -370,20 +370,7 @@
             Метод який буде виконуватися при виключенні парсингу типу
             </summary>
         </member>
-        <member name="T:MyLibraries.MySystemLib.Classes.MyMath.typeof">
-            <summary>
-            Перерахування типів 
-            </summary>
-        </member>
-        <member name="M:MyLibraries.MySystemLib.Classes.MyMath.Max(System.Int32@,System.Int32,System.Int32)">
-            <summary>
-            Отримати максимальне значення
-            </summary>
-            <param name="currentValue">Поточне значення</param>
-            <param name="value1">Значення 1</param>
-            <param name="value2">Значення 2</param>
-        </member>
-        <member name="M:MyLibraries.MySystemLib.Classes.MyMath.GetTypeofTemplate``1(MyLibraries.MySystemLib.Classes.MyMath.typeof@)">
+        <member name="M:MyLibraries.MySystemLib.Classes.MyMath.GetTypeofTemplate``1(MyLibraries.MySystemLib.Enums.MyTypeof@)">
             <summary>
             Отримати typeof шаблону
             </summary>
@@ -399,6 +386,46 @@
             <param name="value2">Значення 2</param>
             <param name="symbolEquality">Символ рівності</param>
             <returns></returns>
+        </member>
+        <member name="T:MyLibraries.MySystemLib.Classes.MyRandom">
+            <summary>
+            Випадковий
+            </summary>
+        </member>
+        <member name="M:MyLibraries.MySystemLib.Classes.MyRandom.Next(System.Int32@,System.Int32,System.Int32)">
+            <summary>
+            Отримати випадкове число від minNumber до maxNumber
+            </summary>
+            <param name="number">Поточне число</param>
+            <param name="minNumber">Мінімальне значення</param>
+            <param name="maxNumber">Маскимальне число</param>
+        </member>
+        <member name="M:MyLibraries.MySystemLib.Classes.MyRandom.Next(System.String@,System.Int32,System.Boolean,System.Boolean,System.Boolean,System.Collections.Generic.List{System.String})">
+            <summary>
+            Отримати випадковий рядок
+            </summary>
+            <param name="str">Поточний рядок</param>
+            <param name="lengthStr">Довжина випадкового рядка</param>
+            <param name="enterNumber">Вмістити числа</param>
+            <param name="enterLowLatter">Вмістити маленькі літери</param>
+            <param name="enterCapLatter">Вмістити великі літери</param>
+            <param name="listAddChars">Список додаткових символів</param>
+        </member>
+        <member name="M:MyLibraries.MySystemLib.Classes.MyRandom.Next(System.String@,System.Int32,System.Collections.Generic.List{System.Char})">
+            <summary>
+            Отримати випадковий рядок
+            </summary>
+            <param name="str">Поточний рядок</param>
+            <param name="lengthStr">Довжина випадкового рядка</param>
+            <param name="listAllowedChars">Список дозволених символів</param>
+        </member>
+        <member name="M:MyLibraries.MySystemLib.Classes.MyRandom.Next``1(``0@,System.Collections.Generic.List{``0})">
+            <summary>
+            Отримати випадкове значення з списку
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="value">Поточне значення</param>
+            <param name="listValue">Список значень</param>
         </member>
         <member name="T:MyLibraries.MySystemLib.Classes.MyString">
             <summary>
@@ -577,6 +604,11 @@
             <param name="currentStr">Поточний рядок</param>
             <param name="listReplaceStr">Список підрядків для заміни</param>
             <param name="newValue">Новий підрядок</param>
+        </member>
+        <member name="T:MyLibraries.MySystemLib.Enums.MyTypeof">
+            <summary>
+            Перерахування типів 
+            </summary>
         </member>
     </members>
 </doc>
