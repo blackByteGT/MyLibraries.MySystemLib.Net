@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MyLibraries.MySystemLib.Classes
 {
@@ -18,7 +15,7 @@ namespace MyLibraries.MySystemLib.Classes
         /// <param name="minNumber">Мінімальне значення</param>
         /// <param name="maxNumber">Маскимальне число</param>
         static public void Next(ref int number, int minNumber = 0, int maxNumber = int.MaxValue) =>
-            number = new Random().Next(minNumber, maxNumber);
+            number = new Random(DateTime.Now.Millisecond).Next(minNumber, maxNumber);
         /// <summary>
         /// Отримати випадковий рядок
         /// </summary>
