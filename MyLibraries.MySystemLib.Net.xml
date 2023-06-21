@@ -605,6 +605,25 @@
             <param name="listReplaceStr">Список підрядків для заміни</param>
             <param name="newValue">Новий підрядок</param>
         </member>
+        <member name="T:MyLibraries.MySystemLib.Net.Classes.MyConvert">
+            <summary>
+            Конвектор
+            </summary>
+        </member>
+        <member name="M:MyLibraries.MySystemLib.Net.Classes.MyConvert.ConvertToArrayByte(System.Byte[]@,System.IO.Stream)">
+            <summary>
+            Перетворити у масив байтів
+            </summary>
+            <param name="arrayByte">Поточний масив байтів</param>
+            <param name="stream">Потік даних</param>
+        </member>
+        <member name="M:MyLibraries.MySystemLib.Net.Classes.MyConvert.ConvertToStream(System.IO.Stream@,System.Byte[])">
+            <summary>
+            Перетворити у потік даних
+            </summary>
+            <param name="stream">Поточний потік даних</param>
+            <param name="arrayByte">Мисив байтів</param>
+        </member>
         <member name="T:MyLibraries.MySystemLib.Enums.MyTypeof">
             <summary>
             Перерахування типів 
