@@ -2,7 +2,7 @@
 
   <PropertyGroup>
 	  <TargetFrameworks>net5.0;net48</TargetFrameworks>
-    <Version>21.21.6.23</Version>
+    <Version>22.3.7.23</Version>
     <Authors>Vladislav Rak</Authors>
     <Product>MySystemLib</Product>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>

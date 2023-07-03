@@ -78,6 +78,25 @@
             <param name="currentSymbol">Поточний символ</param>
             <returns>true - поточний символ це велика англійська літера, false - поточний символ це не велика англійська літера</returns>
         </member>
+        <member name="T:MyLibraries.MySystemLib.Classes.MyConvert">
+            <summary>
+            Конвектор
+            </summary>
+        </member>
+        <member name="M:MyLibraries.MySystemLib.Classes.MyConvert.ConvertToArrayByte(System.Byte[]@,System.IO.Stream)">
+            <summary>
+            Перетворити у масив байтів
+            </summary>
+            <param name="arrayByte">Поточний масив байтів</param>
+            <param name="stream">Потік даних</param>
+        </member>
+        <member name="M:MyLibraries.MySystemLib.Classes.MyConvert.ConvertToStream(System.IO.Stream@,System.Byte[])">
+            <summary>
+            Перетворити у потік даних
+            </summary>
+            <param name="stream">Поточний потік даних</param>
+            <param name="arrayByte">Мисив байтів</param>
+        </member>
         <member name="T:MyLibraries.MySystemLib.Classes.MyDecimal">
             <summary>
             Десяткове число з плаваючою комою
@@ -350,6 +369,14 @@
             <param name="index">Поточний індекс</param>
             <returns>true - індекс входить у список, false - індекс не входить у список</returns>
         </member>
+        <member name="M:MyLibraries.MySystemLib.Classes.MyList.IsEmpty``1(System.Collections.Generic.List{``0})">
+            <summary>
+            Перевірка на порожній список
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="list">Список</param>
+            <returns>true - список порожній, false - список не порожній</returns>
+        </member>
         <member name="M:MyLibraries.MySystemLib.Classes.MyList.Sort``2(System.Collections.Generic.List{``0}@,System.Func{``0,``1},System.Boolean)">
             <summary>
             Відсортувати. Використовується для списків з декількома типами
@@ -604,25 +631,6 @@
             <param name="currentStr">Поточний рядок</param>
             <param name="listReplaceStr">Список підрядків для заміни</param>
             <param name="newValue">Новий підрядок</param>
-        </member>
-        <member name="T:MyLibraries.MySystemLib.Net.Classes.MyConvert">
-            <summary>
-            Конвектор
-            </summary>
-        </member>
-        <member name="M:MyLibraries.MySystemLib.Net.Classes.MyConvert.ConvertToArrayByte(System.Byte[]@,System.IO.Stream)">
-            <summary>
-            Перетворити у масив байтів
-            </summary>
-            <param name="arrayByte">Поточний масив байтів</param>
-            <param name="stream">Потік даних</param>
-        </member>
-        <member name="M:MyLibraries.MySystemLib.Net.Classes.MyConvert.ConvertToStream(System.IO.Stream@,System.Byte[])">
-            <summary>
-            Перетворити у потік даних
-            </summary>
-            <param name="stream">Поточний потік даних</param>
-            <param name="arrayByte">Мисив байтів</param>
         </member>
         <member name="T:MyLibraries.MySystemLib.Enums.MyTypeof">
             <summary>
