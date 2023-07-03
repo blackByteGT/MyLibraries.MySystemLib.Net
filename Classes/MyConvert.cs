@@ -1,6 +1,6 @@
 ﻿using System.IO;
 
-namespace MyLibraries.MySystemLib.Net.Classes
+namespace MyLibraries.MySystemLib.Classes
 {
     /// <summary>
     /// Конвектор

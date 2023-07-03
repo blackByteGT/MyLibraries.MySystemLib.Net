@@ -310,6 +310,16 @@ namespace MyLibraries.MySystemLib.Classes
         {
             return !(index < 0) && index < list.Count;
         }
+        /// <summary>
+        /// Перевірка на порожній список
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="list">Список</param>
+        /// <returns>true - список порожній, false - список не порожній</returns>
+        static public bool IsEmpty<T>(List<T> list)
+        {
+            return list == null || list.Count == 0;
+        }
         #endregion Checks
 
         #region Sort
