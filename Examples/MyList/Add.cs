@@ -36,6 +36,7 @@ namespace Examples
             MyList.Add(ref listString, "index", index: 1);                          // {"forward", "index", "m", "f", "t", "z", "j"}
             MyList.Add(ref listTest, new Test(7, "index"), index: listTest.Count);  // {{5, "forward"}, {4, "a"}, {8, "p"}, {9, "h"}, {2, "c"}, {0, "e"}, {7, "index"}}
             #endregion Adding by index
+                
             return;
         }
 
