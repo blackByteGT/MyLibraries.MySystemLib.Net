@@ -1,14 +1,14 @@
 ﻿using MyLibraries.MySystemLib.Classes;
 
-namespace ConsoleAppForShowExamples
+namespace Examples
 {
     class Program
     {
         static void Main(string[] args)
         {
-            decimal number = default;
+            decimal number;
 
-            MyDecimal.Parse(ref number, "12.5"); // number = 12.5
+            number = default; MyDecimal.Parse(ref number, "12.5"); // number = 12.5
             number = default; MyDecimal.Parse(ref number, "12,5"); // number = 12.5
             number = default; MyDecimal.Parse(ref number, "12/5"); // number = default
 
