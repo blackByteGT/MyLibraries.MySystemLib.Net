@@ -1,6 +1,4 @@
 ﻿using MyLibraries.MySystemLib.Classes;
-using System;
-using System.Collections.Generic;
 
 namespace Examples
 {
