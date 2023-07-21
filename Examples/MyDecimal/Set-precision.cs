@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace ConsoleAppForShowExamples
+namespace Examples
 {
     class Program
     {
