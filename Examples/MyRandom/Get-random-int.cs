@@ -1,7 +1,7 @@
 ﻿using System;
 using MyLibraries.MySystemLib.Classes;
 
-namespace ConsoleAppForShowExamples
+namespace Examples
 {
     class Program
     {
