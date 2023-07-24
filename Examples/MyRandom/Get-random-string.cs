@@ -16,7 +16,7 @@ namespace Examples
             // Info lengthStr: 5
 
             str = default; MyRandom.Next(ref str, lengthStr, listAllowedChars: new List<char>() { 'h', 'e', 'l', 'l', 'o' });       // hoehl
-            str = default; MyRandom.Next(ref str, lengthStr, enterNumber: true);                                                    // str = 45426
+            str = default; MyRandom.Next(ref str, lengthStr, enterNumber: true);                                                    // 45426
             str = default; MyRandom.Next(ref str, lengthStr, enterLowLatter: true);                                                 // joxtc
             str = default; MyRandom.Next(ref str, lengthStr, enterCapLatter: true);                                                 // INJEO
             str = default; MyRandom.Next(ref str, lengthStr, enterLowLatter: true, enterCapLatter: true);                           // fgEJL
