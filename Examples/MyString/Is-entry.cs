@@ -13,6 +13,9 @@ namespace Examples
             bool result = default;
             #endregion Items
 
+            result = MyString.IsEntry(str, 3);  // true
+            result = MyString.IsEntry(str, -1); // false
+                
             result = MyString.IsEntry(str, 'e');  // true
             result = MyString.IsEntry(str, 'q');  // false
             result = MyString.IsEntry(str, "ab"); // true
