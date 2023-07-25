@@ -1,72 +1,98 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace MyLibraries.MySystemLib.Classes
 {
     /// <summary>
     /// Рядок
     /// </summary>
+    /// <remarks>
+    ///     <para>Файл класу: <seealso href="https://github.com/blackByteGT/MyLibraries.MySystemLib.Net/blob/main/Classes/MyString.cs"/></para>
+    ///     <para>Приклади застосування: <seealso href="https://github.com/blackByteGT/MyLibraries.MySystemLib.Net/tree/main/Examples/MyString"/></para>
+    /// </remarks>
+    /// 
+    /// <translation xml:lang="en">
+    ///     <summary>
+    ///     String
+    ///     </summary>
+    ///     <remarks>
+    ///         <para>File code: <seealso href="https://github.com/blackByteGT/MyLibraries.MySystemLib.Net/blob/main/Classes/MyString.cs"/></para>
+    ///         <para>Application examples: <seealso href="https://github.com/blackByteGT/MyLibraries.MySystemLib.Net/tree/main/Examples/MyString"/></para>
+    ///     </remarks>
+    /// </translation>
     static public class MyString
     {
         #region Items
         /// <summary>
         /// Символи для роботи з форматом рядка
         /// </summary>
-        public const string symbolForFormat = "X";
+        /// 
+        /// <translation xml:lang="en">
+        ///     <summary>
+        ///     Symbols for working with string format
+        ///     </summary>
+        /// </translation>
+        public const char SymbolForFormat = 'X';
 
         #region Formats
         /// <summary>
-        /// Формат для номера телефона
+        /// Формат номера телефону
         /// </summary>
+        /// 
+        /// <translation xml:lang="en">
+        ///     <summary>
+        ///     Format for phone number
+        ///     </summary>
+        /// </translation>
         public const string FormatByTelephoneNumber = "+38-(XXX)-XXX-XX-XX";
         /// <summary>
-        /// Формат для номеру банківської карти
+        /// Формат номера банківської карти
         /// </summary>
+        /// 
+        /// <translation xml:lang="en">
+        ///     <summary>
+        ///     Bank card number format
+        ///     </summary>
+        /// </translation>
         public const string FormatByNumberCard = "XXXX-XXXX-XXXX-XXXX";
         #endregion Formats
 
         #endregion Items
 
         #region Functions
-        #region For database
-        /// <summary>
-        /// Виправити рядок з БД
-        /// </summary>
-        /// <param name="str">Поточний рядок</param>
-        static public void ToFixStringFromDB(ref string str)
-        {
-            List<string>
-                listReplaceStr = new List<string>()
-                {
-                        @"\n2", // Двойний перехід на наступний рядок
-                        @"\n",  // Перехід на наступний рядок
-                        @"\t2"  // Двойний пробіл
-                },
-                listNewValue = new List<string>()
-                {
-                        "\n\n",
-                        "\n",
-                        "  "
-                };
-
-            Replace(ref str, listReplaceStr, listNewValue);
-        }
-        #endregion For database
-
         #region Sets
         /// <summary>
         /// Встановити довжину рядка
         /// </summary>
+        /// <remarks>Приклад: <seealso href="https://raw.githubusercontent.com/blackByteGT/MyLibraries.MySystemLib.Net/main/Examples/MyString/Set-length.cs"/></remarks>
         /// <param name="str">Поточний рядок</param>
         /// <param name="length">Вказана довжина</param>
-        static public void SetLength(ref string str, int length)
+        /// <param name="charSet">Символ добавлення довжини</param>
+        /// 
+        /// <translation xml:lang="en">
+        ///     <summary>
+        ///     Set the line length
+        ///     </summary>
+        ///     <remarks>Example: <seealso href="https://raw.githubusercontent.com/blackByteGT/MyLibraries.MySystemLib.Net/main/Examples/MyString/Set-length.cs"/></remarks>
+        ///     <param name="str">The current line</param>
+        ///     <param name="length">The specified length</param>
+        ///     <param name="charSet">Add length symbol</param>
+        /// </translation>
+        static public void SetLength(ref string str, int length, char charSet = ' ')
         {
+            #region Items
             string newStr = "";
+            int
+                lengthStr = str.Length,
+                difference = default;
 
-            int lengthStr = str.Length;
+            if (charSet == default) charSet = ' ';
+            #endregion Items
+
             for (int i = 0; i < length && i < lengthStr; i++) newStr += str[i];
 
-            int difference = length - lengthStr;
-            if (difference > 0) for (int i = 0; i < difference; i++) newStr += ' ';
+            if ((difference = length - lengthStr) > 0)
+                for (int i = 0; i < difference; i++) newStr += charSet;
 
             str = newStr;
         }
@@ -74,95 +100,24 @@ namespace MyLibraries.MySystemLib.Classes
 
         #region Gets
         /// <summary>
-        /// Отримати рядок з відповідним форматом.
-        /// X/x - поточний спеціальний символ формату
-        /// Наприклад: str = "0985050836", format = "+38-(XXX)-XXX-XX-XX", length = 0 => +38-(098)-505-08-36
-        /// </summary>
-        /// <param name="str">Рядок без формату</param>
-        /// <param name="format">Формат до якого потрібно привести str. Приклад наведено в описі</param>
-        /// <param name="formatChar">Спеціальний символ формату</param>
-        /// <param name="length">Довжина рядка. Якщо 0 - довжина не зміниться</param>
-        static public void GetWithFormat(ref string str, int length = 0, string format = null, string formatChar = null)
-        {
-            int lengthStr = str.Length;
-            string newStr = "";
-
-            if (length > 0) SetLength(ref str, length);
-
-            if (format != null)
-            {
-                string currentFormatChar = formatChar == null ? symbolForFormat : formatChar;
-
-                if (CheckForFormatInString(str, format, currentFormatChar)) return;
-
-                char currentChar = new char();
-                int indexForStr = 0;
-                int lengthFormat = format.Length;
-
-                for (int i = 0; i < lengthFormat; i++)
-                {
-                    currentChar = format[i];
-
-                    if (indexForStr < lengthStr && CheckSubstringInString(currentFormatChar, currentChar.ToString()))
-                    {
-                        newStr += str[indexForStr++];
-
-                        continue;
-                    }
-
-                    newStr += currentChar;
-                }
-
-                str = newStr;
-            }
-        }
-        /// <summary>
-        /// Отримати рядок без формату.
-        /// X/x - поточний спеціальний символ формату
-        /// Наприклад: str = "+38-(098)-505-08-36", format = "+38-(XXX)-XXX-XX-XX", length = 0 => 0985050836
-        /// </summary>
-        /// <param name="str">Рядок без формату</param>
-        /// <param name="format">Формат до якого потрібно привести str. Приклад наведено в описі</param>
-        /// <param name="formatChar">Спеціальний символ формату</param>
-        /// <param name="length">Довжина рядка. Якщо 0 - довжина не зміниться</param>
-        static public void GetWithoutFormat(ref string str, int length = 0, string format = null, string formatChar = null)
-        {
-            string newStr = "";
-
-            if (length > 0) SetLength(ref str, length);
-
-            if (format != null)
-            {
-                string currentFormatChar = formatChar == null ? symbolForFormat : formatChar;
-
-                if (!CheckForFormatInString(str, format, currentFormatChar)) return;
-
-                int
-                    lengthStr = str.Length,
-                    lengthFormat = format.Length;
-                string
-                    currentCharStr = "",
-                    currentCharFormat = "";
-
-                for (int i = 0; i < lengthStr && i < lengthFormat; i++)
-                {
-                    currentCharStr = str[i].ToString();
-                    currentCharFormat = format[i].ToString();
-
-                    if (currentCharStr != currentCharFormat && CheckSubstringInString(currentFormatChar, currentCharFormat))
-                        newStr += currentCharStr;
-                }
-            }
-
-            str = newStr;
-        }
-        /// <summary>
         /// Отримати підрядок з рядка
         /// </summary>
+        /// <remarks>Приклад: <seealso href="https://raw.githubusercontent.com/blackByteGT/MyLibraries.MySystemLib.Net/main/Examples/MyString/Get-substring.cs"/></remarks>
         /// <param name="substr">Поточний підрядок</param>
         /// <param name="str">Поточний рядок</param>
         /// <param name="index">Початковий індекс</param>
-        /// <param name="lenght">Довжина підстроки. Якщо lenght = 0, тоді зчитування символів з str буде відбуватися до кінця</param>
+        /// <param name="lenght">Довжина підстроки. Якщо length = 0, тоді зчитування символів з str буде відбуватися до кінця</param>
+        /// 
+        /// <translation xml:lang="en">
+        ///     <summary>
+        ///     Get a substring from a string
+        ///     </summary>
+        ///     <remarks>Example: <seealso href="https://raw.githubusercontent.com/blackByteGT/MyLibraries.MySystemLib.Net/main/Examples/MyString/Get-substring.cs"/></remarks>
+        ///     <param name="substr">Current substring</param>
+        ///     <param name="str">The current line</param>
+        ///     <param name="index">Initial index</param>
+        ///     <param name="lenght">Substring length. If length = 0, then characters from str will be read to the end</param>
+        /// </translation>
         static public void GetSubstring(ref string substr, string str, int index = 0, int lenght = 0)
         {
             #region Items
@@ -173,10 +128,11 @@ namespace MyLibraries.MySystemLib.Classes
             if (lenght == 0)
             {
                 if (index == 0) { substr = str; return; }
-                else lenght = lengthStr;
+
+                lenght = lengthStr;
             }
 
-            string newSubstr = "";
+            string newSubstr = default;
             int lengthFromIndex = index + lenght;
             #endregion Items
 
@@ -185,70 +141,43 @@ namespace MyLibraries.MySystemLib.Classes
             substr = newSubstr;
         }
         /// <summary>
-        /// Отримати підрядки з рядка
-        /// </summary>
-        /// <param name="substrs">Поточний список підрядків</param>
-        /// <param name="str">Поточний рядок</param>
-        /// <param name="strDividers">Рядок розділювачів</param>
-        static public void GetSubstrings(ref List<string> substrs, string str, List<string> strDividers)
-        {
-            int
-                lengthStr = str.Length,
-                countStrDividers = strDividers.Count;
-
-            if (lengthStr == 0 || countStrDividers == 0) return;
-
-            string currentStr = "", currentDivider = "";
-            int currentIndex = 0, currentLength = 0;
-            List<string> newSubstrs = new List<string>();
-
-            for (int i = 0; i < countStrDividers; i++)
-                for (int j = 0; j < lengthStr; j++)
-                {
-                    currentDivider = strDividers[i];
-                    currentLength = currentDivider.Length;
-                    if (currentLength == 0) break;
-
-                    GetSubstring(ref currentStr, str, j, currentLength);
-
-                    if (currentStr == currentDivider)
-                    {
-                        GetSubstring(ref currentStr, str, currentIndex, j - currentIndex);
-                        newSubstrs.Add(currentStr);
-
-                        currentIndex = j + 1;
-                    }
-                }
-
-            substrs = newSubstrs;
-        }
-        /// <summary>
         /// Отримати підрядок з рядка
         /// </summary>
+        /// <remarks>Приклад: <seealso href="https://raw.githubusercontent.com/blackByteGT/MyLibraries.MySystemLib.Net/main/Examples/MyString/Get-substring.cs"/></remarks>
         /// <param name="substr">Поточний підрядок</param>
         /// <param name="str">Поточний рядок</param>
         /// <param name="primaryStr">Початковий підрядок</param>
         /// <param name="finalStr">Кінцевий підрядок</param>
-        /// <param name="austerityPrimaryStr"></param>
-        /// <param name="austerityFinalStr"></param>
+        /// <param name="austerityPrimaryStr">Добавити початковий підрядок</param>
+        /// <param name="austerityFinalStr">Добавити кінцевий підрядок</param>
+        /// 
+        /// <translation xml:lang="en">
+        ///     <summary>
+        ///     Get a substring from a string
+        ///     </summary>
+        ///     <remarks>Example: <seealso href="https://raw.githubusercontent.com/blackByteGT/MyLibraries.MySystemLib.Net/main/Examples/MyString/Get-substring.cs"/></remarks>
+        ///     <param name="substr">Current substring</param>
+        ///     <param name="str">The current line</param>
+        ///     <param name="primaryStr">Initial substring</param>
+        ///     <param name="finalStr">Final substring</param>
+        ///     <param name="austerityPrimaryStr">Add an initial substring</param>
+        ///     <param name="austerityFinalStr">Add a trailing line</param>
+        /// </translation>
         static public void GetSubstring(
             ref string substr, string str, string primaryStr, string finalStr, bool austerityPrimaryStr = false, bool austerityFinalStr = false
         )
         {
+            if (IsEmpty(str) || IsEmpty(primaryStr) || IsEmpty(finalStr)) return;
+
+            #region Items
             int
                  lengthStr = str.Length,
                  lengthPrimaryStr = primaryStr.Length,
                  lengthFinalStr = finalStr.Length;
-            bool
-                checkStr = lengthStr == 0,
-                checkPrimaryStr = lengthPrimaryStr == 0,
-                checkFinalStr = lengthFinalStr == 0;
-
-            if (checkStr || checkPrimaryStr || checkFinalStr) return;
-
             string
                 newSubstr = "",
                 currentStr = "";
+            #endregion Items
 
             for (int i = 0; i < lengthStr; i++)
             {
@@ -275,89 +204,131 @@ namespace MyLibraries.MySystemLib.Classes
             substr = newSubstr;
         }
         /// <summary>
-        /// Отримати розвернутий рядок
+        /// Отримати підрядки з рядка
         /// </summary>
-        /// <param name="newStr">Новий рядок</param>
+        /// <remarks>Приклад: <seealso href="https://raw.githubusercontent.com/blackByteGT/MyLibraries.MySystemLib.Net/main/Examples/MyString/Get-substrings.cs"/></remarks>
+        /// <param name="substrs">Поточний список підрядків</param>
         /// <param name="str">Поточний рядок</param>
-        static public void GetDeployed(ref string newStr, string str)
+        /// <param name="separator">Розподілювач</param>
+        /// 
+        /// <translation xml:lang="en">
+        ///     <summary>
+        ///     Get substrings from a string
+        ///     </summary>
+        ///     <remarks>Example: <seealso href="https://raw.githubusercontent.com/blackByteGT/MyLibraries.MySystemLib.Net/main/Examples/MyString/Get-substrings.cs"/></remarks>
+        ///     <param name="substrs">Current list of substrings</param>
+        ///     <param name="str">The current line</param>
+        ///     <param name="separator">Distributor</param>
+        /// </translation>
+        static public void GetSubstrings(ref List<string> substrs, string str, string separator)
         {
-            int lengthStr = str.Length;
-            if (lengthStr == 0) return;
+            if (IsEmpty(str) || IsEmpty(separator)) return;
 
-            string newCurrentStr = "";
+            #region Items
+            int
+                lengthStr = str.Length,
+                lengthSeparator = separator.Length,
+                currentIndex = 0;
+            string currentStr = default;
+            List<string> newSubstrs = new List<string>();
+            #endregion Items
 
-            for (int i = lengthStr - 1; !(i < 0); i--) newCurrentStr += str[i];
+            for (int i = 0; i < lengthStr; i++)
+            {
+                GetSubstring(ref currentStr, str, i, lengthSeparator);
 
-            newStr = newCurrentStr;
+                if (currentStr == separator)
+                {
+                    GetSubstring(ref currentStr, str, currentIndex, i - currentIndex); newSubstrs.Add(currentStr);
+
+                    currentIndex = i + lengthSeparator;
+                }
+            }
+
+            if (currentIndex != lengthStr) { GetSubstring(ref currentStr, str, currentIndex); newSubstrs.Add(currentStr); }
+
+            substrs = newSubstrs;
         }
         /// <summary>
-        /// Отримати індекси підрядка в рядку
+        /// Отримати розташування підрядка в рядку
         /// </summary>
+        /// <remarks>Приклад: <seealso href="https://raw.githubusercontent.com/blackByteGT/MyLibraries.MySystemLib.Net/main/Examples/MyString/Get-substring-indices.cs"/></remarks>
+        /// <param name="startIndex">Індекс початку</param>
+        /// <param name="endIndex">Індекс кінця</param>
         /// <param name="str">Рядок</param>
         /// <param name="substr">Підрядок</param>
-        /// <param name="firstIndex">Перший індекс</param>
-        /// <param name="lastIndex">Останній індекс</param>
-        static public void GetSubstringIndices(string str, string substr, ref int firstIndex, ref int lastIndex)
+        /// 
+        /// <translation xml:lang="en">
+        ///     <summary>
+        ///     Get the position of a substring in a string
+        ///     </summary>
+        ///     <remarks>Example: <seealso href="https://raw.githubusercontent.com/blackByteGT/MyLibraries.MySystemLib.Net/main/Examples/MyString/Get-substring-indices.cs"/></remarks>
+        ///     <param name="startIndex">Start index</param>
+        ///     <param name="endIndex">End index</param>
+        ///     <param name="str">String</param>
+        ///     <param name="substr">Substring</param>
+        /// </translation>
+        static public void GetSubstringIndices(ref int startIndex, ref int endIndex, string str, string substr)
         {
+            if (IsEmpty(str) || IsEmpty(substr)) return;
+
+            #region Items
             int
                 lengthStr = str.Length,
                 lengthSubstr = substr.Length;
 
-            if (lengthStr == 0 || lengthSubstr == 0 || lengthSubstr > lengthStr) return;
+            if (lengthSubstr > lengthStr) return;
 
             string currentStr = "";
+            #endregion Items
 
             for (int i = 0; i < lengthStr; i++)
             {
                 GetSubstring(ref currentStr, str, i, lengthSubstr);
+
                 if (currentStr == substr)
                 {
-                    firstIndex = i;
-                    lastIndex = i + lengthSubstr - 1;
+                    startIndex = i;
+                    endIndex = i + lengthSubstr - 1;
 
                     return;
                 }
             }
         }
-        /// <summary>
-        /// Отримати максимальну довжину значення з списка значень
-        /// </summary>
-        /// <param name="listValue">Список значень</param>
-        /// <param name="maxLength">Поточна максимальна довжина</param>
-        static public void GetMaximumLengthFromList(List<string> listValue, ref int maxLength)
-        {
-            int countListValue = listValue.Count;
-            if (countListValue == 0) return;
-
-            int newMaxLength = 0, currentLength = 0;
-
-            for (int i = 0; i < countListValue; i++)
-            {
-                currentLength = listValue[i].Length;
-                if (currentLength > newMaxLength) newMaxLength = currentLength;
-            }
-
-            maxLength = newMaxLength;
-        }
         #endregion Gets
 
         #region Checks
         /// <summary>
-        /// Перевірити на наявність підрядка в рядку
+        /// Перевірити на входження підрядка в рядку
         /// </summary>
-        /// <param name="str">Поточний рядок</param>
-        /// <param name="substr">Поточний підрядок</param>
-        /// <returns>true - підрядок входить в рядок,false - не входить</returns>
-        static public bool CheckSubstringInString(string str, string substr)
+        /// <remarks>Приклад: <seealso href="https://raw.githubusercontent.com/blackByteGT/MyLibraries.MySystemLib.Net/main/Examples/MyString/Is-entry.cs"/></remarks>
+        /// <param name="str">Рядок</param>
+        /// <param name="substr">Підрядок</param>
+        /// <returns>true - підрядок входить в рядок, false - підрядок не входить</returns>
+        /// 
+        /// <translation xml:lang="en">
+        ///     <summary>
+        ///     Check for occurrence of a substring in the line
+        ///     </summary>
+        ///     <remarks>Example: <seealso href="https://raw.githubusercontent.com/blackByteGT/MyLibraries.MySystemLib.Net/main/Examples/MyString/Is-entry.cs"/></remarks>
+        ///     <param name="str">String</param>
+        ///     <param name="substr">Substring</param>
+        ///     <returns>true - the substring is included in the string, false - the substring is not included</returns>
+        /// </translation>
+        static public bool IsEntry(string str, string substr)
         {
-            int lengthStr = str.Length;
-            int lengthSubstr = substr.Length;
+            if (IsEmpty(str, false) || IsEmpty(substr, false)) return false;
 
-            if (lengthSubstr > lengthStr) return false;
+            #region Items
+            int
+                lengthStr = str.Length,
+                lengthSubstr = substr.Length;
+
+            if (lengthSubstr > lengthStr) return false; lengthStr -= lengthSubstr - 1;
 
             string currentSubstr = "";
+            #endregion Items
 
-            lengthStr -= lengthSubstr - 1;
             for (int i = 0; i < lengthStr; i++)
             {
                 GetSubstring(ref currentSubstr, str, i, lengthSubstr);
@@ -368,87 +339,184 @@ namespace MyLibraries.MySystemLib.Classes
             return false;
         }
         /// <summary>
+        /// Перевірити на входження символа в рядку
+        /// </summary>
+        /// <remarks>Приклад: <seealso href="https://raw.githubusercontent.com/blackByteGT/MyLibraries.MySystemLib.Net/main/Examples/MyString/Is-entry.cs"/></remarks>
+        /// <param name="str">Рядок</param>
+        /// <param name="symbol">Символ</param>
+        /// <returns>true - символ входить в рядок, false - символ не входить</returns>
+        /// 
+        /// <translation xml:lang="en">
+        ///     <summary>
+        ///     Check for occurrence of a character in a string
+        ///     </summary>
+        ///     <remarks>Example: <seealso href="https://raw.githubusercontent.com/blackByteGT/MyLibraries.MySystemLib.Net/main/Examples/MyString/Is-entry.cs"/></remarks>
+        ///     <param name="str">String</param>
+        ///     <param name="symbol">Symbol</param>
+        ///     <returns>true - the character is included in the line, false - the character is not included</returns>
+        /// </translation>
+        static public bool IsEntry(string str, char symbol)
+        {
+            return IsEntry(str, symbol.ToString());
+        }
+        /// <summary>
+        /// Перевірити на входження індексу у рядок
+        /// </summary>
+        /// <remarks>Приклад: <seealso href="https://raw.githubusercontent.com/blackByteGT/MyLibraries.MySystemLib.Net/main/Examples/MyString/Is-entry.cs"/></remarks>
+        /// <param name="str">Рядок</param>
+        /// <param name="index">Індекс</param>
+        /// <returns>true - індекс входить у рядок, false - індекс не входить у рядок</returns>
+        /// 
+        /// <translation xml:lang="en">
+        ///     <summary>
+        ///     Check for occurrence of the index in the string
+        ///     </summary>
+        ///     <remarks>Example: <seealso href="https://raw.githubusercontent.com/blackByteGT/MyLibraries.MySystemLib.Net/main/Examples/MyString/Is-entry.cs"/></remarks>
+        ///     <param name="str">String</param>
+        ///     <param name="index">Index</param>
+        ///     <returns>true - the index is included in the string, false - the index is not included in the string</returns>
+        /// </translation>
+        static public bool IsEntry(string str, int index)
+        {
+            return index > -1 && index < str.Length;
+        }
+        /// <summary>
         /// Перевірити на наявність формату в рядку
         /// </summary>
+        /// <remarks>Приклад: <seealso href="https://raw.githubusercontent.com/blackByteGT/MyLibraries.MySystemLib.Net/main/Examples/MyString/Is-entry.cs"/></remarks>
         /// <param name="str">Рядок</param>
         /// <param name="format">Формат</param>
-        /// <param name="formatChar">Спеціальний символ формату</param>
-        /// <returns>true - якщо формат знайдено в рядку, false - якщо формат не знайдено в рядку</returns>
-        static public bool CheckForFormatInString(string str, string format, string formatChar)
+        /// <param name="formatChar">Cимвол формату</param>
+        /// <returns>true - формат знайдено в рядку, false - формат не знайдено в рядку</returns>
+        /// 
+        /// <translation xml:lang="en">
+        ///     <summary>
+        ///     Check for format in a string
+        ///     </summary>
+        ///     <remarks>Example: <seealso href="https://raw.githubusercontent.com/blackByteGT/MyLibraries.MySystemLib.Net/main/Examples/MyString/Is-entry.cs"/></remarks>
+        ///     <param name="str">String</param>
+        ///     <param name="format">String format</param>
+        ///     <param name="formatChar">Symbol format</param>
+        ///     <returns>true - the format is found in the string, false - the format is not found in the string</returns>
+        /// </translation>
+        static public bool IsEntry(string str, string format, char formatChar = SymbolForFormat)
         {
+            #region Items
             string formatWitoutFormatChar = format; Remove(ref formatWitoutFormatChar, formatChar);
-            if (formatWitoutFormatChar.Length == 0) return false;
 
-            string currentStr = str, currentChar = "";
+            if (IsEmpty(formatWitoutFormatChar)) return false;
+
+            char currentChar = default;
+            string currentStr = str;
+            #endregion Items
 
             while (formatWitoutFormatChar.Length > 0)
             {
-                currentChar = formatWitoutFormatChar[0].ToString();
+                currentChar = formatWitoutFormatChar[0];
 
-                if (!CheckSubstringInString(currentStr, currentChar))
-                    return false;
+                if (!IsEntry(currentStr, currentChar)) return false;
 
-                Remove(ref currentStr, currentChar, false);
-                Remove(ref formatWitoutFormatChar, 0);
+                Remove(ref currentStr, currentChar, false); Remove(ref formatWitoutFormatChar, 0);
             }
 
             return true;
         }
         /// <summary>
-        /// Перевірити на недозволені підрядки в рядку
+        /// Перевірити на входження підрядків в рядок
         /// </summary>
-        /// <param name="str">Поточний рядок</param>
-        /// <param name="allowedSubstrs">Список дозволених підрядків</param>
-        /// <returns>true - недозволений рядок знайдено, false - недозволений рядок не знайдено</returns>
-        static public bool CheckForIllegalSubstringInString(string str, List<string> allowedSubstrs)
+        /// <remarks>Приклад: <seealso href="https://raw.githubusercontent.com/blackByteGT/MyLibraries.MySystemLib.Net/main/Examples/MyString/Is-entry.cs"/></remarks>
+        /// <param name="str">Рядок</param>
+        /// <param name="listSubstrs">Список підрядків</param>
+        /// <param name="austerityEntry">Чи кожне значення зі списку має бути у реченні</param>
+        /// <returns>true - підрядок входить в рядок, false - підрядок не входить</returns>
+        /// 
+        /// <translation xml:lang="en">
+        ///     <summary>
+        ///     Check for occurrence of substrings in a string
+        ///     </summary>
+        ///     <remarks>Example: <seealso href="https://raw.githubusercontent.com/blackByteGT/MyLibraries.MySystemLib.Net/main/Examples/MyString/Is-entry.cs"/></remarks>
+        ///     <param name="str">String</param>
+        ///     <param name="listSubstrs">List of substrings</param>
+        ///     <param name="austerityEntry">Whether every value from the list must be in a sentence</param>
+        ///     <returns>true - the substring is included in the string, false - the substring is not included</returns>
+        /// </translation>
+        static public bool IsEntry(string str, List<string> listSubstrs, bool austerityEntry = false)
         {
-            #region Items
-            int countAllowedSubstrs = allowedSubstrs.Count; if (countAllowedSubstrs == 0) return false;
-            string currentStr = "";
-            int
-                lengthStr = str.Length,
-                currentLengthSubstr = 0;
-            #endregion Items
+            if (MyList.IsEmpty(listSubstrs)) return false;
 
-            for (int i = 0; i < countAllowedSubstrs; i++)
+            int countListSubstrs = listSubstrs.Count;
+
+            MyList.RemoveDuplicates(ref listSubstrs);
+
+            for (int i = 0; i < countListSubstrs; i++)
             {
-                currentLengthSubstr = allowedSubstrs[i].Length;
-
-                for (int j = 0; j < lengthStr; j += currentLengthSubstr)
-                {
-                    GetSubstring(ref currentStr, str, j, currentLengthSubstr);
-
-                    if (!MyList.CheckValueForEntryInList(currentStr, allowedSubstrs)) return true;
-                }
+                if (IsEntry(str, listSubstrs[i]))   { if (!austerityEntry) return true; }
+                else                                { if (austerityEntry) return false; }
             }
 
-            return false;
+            return true;
+        }
+        /// <summary>
+        /// Перевірка на порожній рядок
+        /// </summary>
+        /// <remarks>Приклад: <seealso href="https://raw.githubusercontent.com/blackByteGT/MyLibraries.MySystemLib.Net/main/Examples/MyString/Is-empty.cs"/></remarks>
+        /// <param name="str">Рядок</param>
+        /// <param name="whiteSpace">Добавити перевіоку на рядок пробілів</param>
+        /// <returns>true - рядок порожній, false - рядок не порожній</returns>
+        /// 
+        /// <translation xml:lang="en">
+        ///     <summary>
+        ///     Check for an empty string
+        ///     </summary>
+        ///     <remarks>Example: <seealso href="https://raw.githubusercontent.com/blackByteGT/MyLibraries.MySystemLib.Net/main/Examples/MyString/Is-empty.cs"/></remarks>
+        ///     <param name="str">String</param>
+        ///     <param name="whiteSpace">Add a check for a string of spaces</param>
+        ///     <returns>true - the line is empty, false - the line is not empty</returns>
+        /// </translation>
+        static public bool IsEmpty(string str, bool whiteSpace = true)
+        {
+            return whiteSpace ? String.IsNullOrWhiteSpace(str) : String.IsNullOrEmpty(str);
         }
         #endregion Checks
 
         #region Remove
         /// <summary>
-        /// Видалити підрядок(-и) за вказаним індексом. Видалення з primaryIndex по finalIndex
+        /// Видалити підрядок за вказаними індексами
         /// </summary>
+        /// <remarks>Приклад: <seealso href="https://raw.githubusercontent.com/blackByteGT/MyLibraries.MySystemLib.Net/main/Examples/MyString/Remove.cs"/></remarks>
         /// <param name="str">Поточний рядок</param>
-        /// <param name="primaryIndex">Початковий індекс</param>
-        /// <param name="finalIndex">Кінцевий індекс. Якщо 0 finalIndex = primaryIndex</param>
-        static public void Remove(ref string str, int primaryIndex, int finalIndex = 0)
+        /// <param name="startIndex">Початковий індекс</param>
+        /// <param name="endIndex">Кінцевий індекс</param>
+        /// 
+        /// <translation xml:lang="en">
+        ///     <summary>
+        ///     Remove the substring at the specified indexes
+        ///     </summary>
+        ///     <remarks>Приклад: <seealso href="https://raw.githubusercontent.com/blackByteGT/MyLibraries.MySystemLib.Net/main/Examples/MyString/Remove.cs"/></remarks>
+        ///     <param name="str">The current string</param>
+        ///     <param name="startIndex">Start index</param>
+        ///     <param name="endIndex">End index</param>
+        /// </translation>
+        static public void Remove(ref string str, int startIndex, int endIndex = 0)
         {
+            if (IsEmpty(str)) return;
+
             #region Items
             int lengthStr = str.Length;
 
-            if (finalIndex == 0) finalIndex = primaryIndex;
-            if (!(primaryIndex > -1) || !(finalIndex < lengthStr) || primaryIndex > finalIndex) return;
+            if (!(startIndex > -1)) return;
+
+            if (endIndex == 0) endIndex = startIndex;
+            else if (!(endIndex < lengthStr) || startIndex > endIndex) return;
 
             string newStr = "";
             #endregion Items
 
             for (int i = 0; i < lengthStr; i++)
             {
-                if (i == primaryIndex)
+                if (i == startIndex)
                 {
-                    for (i = finalIndex + 1; i < lengthStr; i++) newStr += str[i];
+                    for (i = endIndex + 1; i < lengthStr; i++) newStr += str[i];
 
                     break;
                 }
@@ -461,139 +529,354 @@ namespace MyLibraries.MySystemLib.Classes
         /// <summary>
         /// Видалити вказаний підрядок
         /// </summary>
+        /// <remarks>Приклад: <seealso href="https://raw.githubusercontent.com/blackByteGT/MyLibraries.MySystemLib.Net/main/Examples/MyString/Remove.cs"/></remarks>
         /// <param name="str">Поточний рядок</param>
         /// <param name="substr">Підрядок для видалення</param>
-        /// <param name="austerity">true - видаляти усі найдені підрядки, false - видаляти перший підрядок</param>
+        /// <param name="austerity">Видалити всі знайдені підрядки видалення</param>
+        /// 
+        /// <translation xml:lang="en">
+        ///     <summary>
+        ///     Remove the specified substring
+        ///     </summary>
+        ///     <remarks>Example: <seealso href="https://raw.githubusercontent.com/blackByteGT/MyLibraries.MySystemLib.Net/main/Examples/MyString/Remove.cs"/></remarks>
+        ///     <param name="str">The current string</param>
+        ///     <param name="substr">Substring to remove</param>
+        ///     <param name="austerity">Delete all deletion substrings found</param>
+        /// </translation>
         static public void Remove(ref string str, string substr, bool austerity = true)
         {
+            if (IsEmpty(str) || IsEmpty(substr)) return;
+
+            #region Items
             int
                 lengthStr = str.Length,
                 lengthSubstr = substr.Length;
 
-            if (lengthSubstr > lengthStr || lengthStr == 0 || lengthSubstr == 0) return;
+            if (lengthSubstr > lengthStr) return;
 
+            const int defaultIndex = -1;
             int
-                primaryIndex = -1,
-                finalIndex = -1;
+                startIndex = defaultIndex,
+                endIndex = defaultIndex;
+            #endregion Items
 
             while (true)
             {
-                GetSubstringIndices(str, substr, ref primaryIndex, ref finalIndex);
-                if (primaryIndex == -1 || finalIndex == -1) break;
+                GetSubstringIndices(ref startIndex, ref endIndex, str, substr);
 
-                Remove(ref str, primaryIndex, finalIndex);
+                if (startIndex == defaultIndex || endIndex == defaultIndex) break;
+
+                Remove(ref str, startIndex, endIndex);
 
                 if (!austerity) break;
 
-                primaryIndex = -1; finalIndex = -1;
+                startIndex = defaultIndex; endIndex = defaultIndex;
             }
         }
+        /// <summary>
+        /// Видалити вказаний символ
+        /// </summary>
+        /// <remarks>Приклад: <seealso href="https://raw.githubusercontent.com/blackByteGT/MyLibraries.MySystemLib.Net/main/Examples/MyString/Remove.cs"/></remarks>
+        /// <param name="str">Поточний рядок</param>
+        /// <param name="symbol">Символ для видалення</param>
+        /// <param name="austerity">Видалити усі найдені символи видалення</param>
+        /// 
+        /// <translation xml:lang="en">
+        ///     <summary>
+        ///     Remove the specified symbol
+        ///     </summary>
+        ///     <remarks>Example: <seealso href="https://raw.githubusercontent.com/blackByteGT/MyLibraries.MySystemLib.Net/main/Examples/MyString/Remove.cs"/></remarks>
+        ///     <param name="str">The current string</param>
+        ///     <param name="symbol">Symbol to remove</param>
+        ///     <param name="austerity">Remove all delete symbols found</param>
+        /// </translation>
+        static public void Remove(ref string str, char symbol, bool austerity = true) =>
+            Remove(ref str, symbol.ToString(), austerity);
         #endregion Remove
 
         #region Replace
         /// <summary>
-        /// Замінити список підрядків в рядку. Відповідність між списками значень для заміни та нових значьнь - паралельні
+        /// Замінити список підрядків в рядку <para>Відповідність між списками значень, для їх заміни - паралельна</para>
         /// </summary>
-        /// <param name="currentStr">Поточний рядок</param>
+        /// <remarks>Приклад: <seealso href="https://raw.githubusercontent.com/blackByteGT/MyLibraries.MySystemLib.Net/main/Examples/MyString/Replace.cs"/></remarks>
+        /// <param name="str">Поточний рядок</param>
         /// <param name="listReplaceStr">Список підрядків для заміни</param>
         /// <param name="listNewStr">Список нових підрядків</param>
-        static public void Replace(ref string currentStr, List<string> listReplaceStr, List<string> listNewStr)
+        /// 
+        /// <translation xml:lang="en">
+        ///     <summary>
+        ///     Replace the list of substrings in the line <para>Correspondence between lists of values, to replace them - parallel</para>
+        ///     </summary>
+        ///     <remarks>Example: <seealso href="https://raw.githubusercontent.com/blackByteGT/MyLibraries.MySystemLib.Net/main/Examples/MyString/Replace.cs"/></remarks>
+        ///     <param name="str">The current string</param>
+        ///     <param name="listReplaceStr">List of substrings to replace</param>
+        ///     <param name="listNewStr">List of new substrings</param>
+        /// </translation>
+        static public void Replace(ref string str, List<string> listReplaceStr, List<string> listNewStr)
         {
+            if (IsEmpty(str, false) || MyList.IsEmpty(listReplaceStr) || MyList.IsEmpty(listNewStr)) return;
+
+            #region Items
             int
-                lengthCurrentStr = currentStr.Length,
                 countListReplacestr = listReplaceStr.Count,
                 countListNewStr = listNewStr.Count;
 
-            if (lengthCurrentStr == 0 || countListReplacestr == 0 || countListNewStr != countListReplacestr) return;
+            if (countListNewStr != countListReplacestr)
+            {
+                if (countListNewStr > countListReplacestr || countListNewStr != 1) return;
 
-            string newStr = currentStr;
+                Replace(ref str, listReplaceStr, listNewStr[0]); return;
+            }
+
+            string newStr = str;
+            #endregion Items
 
             for (int i = 0; i < countListReplacestr; i++) Replace(ref newStr, listReplaceStr[i], listNewStr[i]);
 
-            currentStr = newStr;
+            str = newStr;
         }
         /// <summary>
         /// Замінити список підрядків у рядку
         /// </summary>
-        /// <param name="currentStr">Поточний рядок</param>
-        /// <param name="listReplaceActions">Список дій для заміни. replaceStr - підрядок, який необхідно замінити, newValue - новий підрядок</param>
-        static public void Replace(ref string currentStr, List<(string replaceStr, string newValue)> listReplaceActions)
+        /// <remarks>Приклад: <seealso href="https://raw.githubusercontent.com/blackByteGT/MyLibraries.MySystemLib.Net/main/Examples/MyString/Replace.cs"/></remarks>
+        /// <param name="str">Поточний рядок</param>
+        /// <param name="listReplaceActions">Список дій для заміни <para>replaceStr - підрядок, який необхідно замінити. newStr - новий підрядок</para></param>
+        /// 
+        /// <translation xml:lang="en">
+        ///     <summary>
+        ///     Replace the list of substrings in a string
+        ///     </summary>
+        ///     <remarks>Example: <seealso href="https://raw.githubusercontent.com/blackByteGT/MyLibraries.MySystemLib.Net/main/Examples/MyString/Replace.cs"/></remarks>
+        ///     <param name="str">The current string</param>
+        ///     <param name="listReplaceActions">List of actions to replace <para>replaceStr - the substring to be replaced. newStr - new substring</para></param>
+        /// </translation>
+        static public void Replace(ref string str, List<(string replaceStr, string newStr)> listReplaceActions)
         {
+            if (IsEmpty(str, false) || MyList.IsEmpty(listReplaceActions)) return;
+
             #region Items
-            int
-                lengthCurrentStr = currentStr.Length,
-                countListReplaceActions = listReplaceActions.Count;
-
-            if (lengthCurrentStr == 0 || countListReplaceActions == 0) return;
-
-            string newStr = currentStr;
-            var replaceAction = listReplaceActions[0];
+            int countListReplaceActions = listReplaceActions.Count;
+            List<string>
+                listReplaceStr = new List<string>(),
+                listNewStr = new List<string>();
             #endregion Items
 
             for (int i = 0; i < countListReplaceActions; i++)
             {
-                replaceAction = listReplaceActions[0];
+                var replaceAction = listReplaceActions[i];
 
-                Replace(ref newStr, replaceAction.replaceStr, replaceAction.newValue);
+                listNewStr.Add(replaceAction.newStr);
+                listReplaceStr.Add(replaceAction.replaceStr);
             }
+
+            Replace(ref str, listReplaceStr, listNewStr);
         }
         /// <summary>
         /// Замінити підрядок в рядку
         /// </summary>
-        /// <param name="currentStr">Поточний рядок</param>
+        /// <remarks>Приклад: <seealso href="https://raw.githubusercontent.com/blackByteGT/MyLibraries.MySystemLib.Net/main/Examples/MyString/Replace.cs"/></remarks>
+        /// <param name="str">Поточний рядок</param>
         /// <param name="replaceStr">Підрядок, який необхідно замінити</param>
-        /// <param name="newValue">Новий підрядок</param>
-        static public void Replace(ref string currentStr, string replaceStr, string newValue)
+        /// <param name="newStr">Новий підрядок</param>
+        /// 
+        /// <translation xml:lang="en">
+        ///     <summary>
+        ///     Replace the substring in the string
+        ///     </summary>
+        ///     <remarks>Example: <seealso href="https://raw.githubusercontent.com/blackByteGT/MyLibraries.MySystemLib.Net/main/Examples/MyString/Replace.cs"/></remarks>
+        ///     <param name="str">The current string</param>
+        ///     <param name="replaceStr">The substring to replace</param>
+        ///     <param name="newStr">New substring</param>
+        /// </translation>
+        static public void Replace(ref string str, string replaceStr, string newStr)
         {
+            if (IsEmpty(str, false) || IsEmpty(replaceStr) || IsEmpty(newStr)) return;
+
             #region Items
             int
-                lengthCurrentStr = currentStr.Length,
+                lengthStr = str.Length,
                 lengthReplaceStr = replaceStr.Length;
 
-            if (lengthCurrentStr == 0 || lengthReplaceStr == 0 || lengthReplaceStr > lengthCurrentStr) return;
+            if (lengthReplaceStr > lengthStr) return;
 
             string
-                newStr = "",
-                current = "";
+                _newStr = default,
+                current = default;
             #endregion Items
 
-            for (int i = 0; i < lengthCurrentStr; i++)
+            for (int i = 0; i < lengthStr; i++)
             {
-                GetSubstring(ref current, currentStr, i, lengthReplaceStr);
+                GetSubstring(ref current, str, i, lengthReplaceStr);
 
                 if (current == replaceStr)
                 {
-                    newStr += newValue;
+                    _newStr += newStr;
                     i += lengthReplaceStr - 1;
                 }
-                else newStr += currentStr[i];
+                else _newStr += str[i];
             }
 
-            currentStr = newStr;
+            str = _newStr;
         }
         /// <summary>
         /// Замінити список підрядків в рядку
         /// </summary>
-        /// <param name="currentStr">Поточний рядок</param>
+        /// <remarks>Приклад: <seealso href="https://raw.githubusercontent.com/blackByteGT/MyLibraries.MySystemLib.Net/main/Examples/MyString/Replace.cs"/></remarks>
+        /// <param name="str">Поточний рядок</param>
         /// <param name="listReplaceStr">Список підрядків для заміни</param>
-        /// <param name="newValue">Новий підрядок</param>
-        static public void Replace(ref string currentStr, List<string> listReplaceStr, string newValue)
+        /// <param name="newStr">Новий підрядок</param>
+        /// 
+        /// <translation xml:lang="en">
+        ///     <summary>
+        ///     Replace the list of substrings in a string
+        ///     </summary>
+        ///     <remarks>Example: <seealso href="https://raw.githubusercontent.com/blackByteGT/MyLibraries.MySystemLib.Net/main/Examples/MyString/Replace.cs"/></remarks>
+        ///     <param name="str">The current string</param>
+        ///     <param name="listReplaceStr">List of substrings to replace</param>
+        ///     <param name="newStr">New substring</param>
+        /// </translation>
+        static public void Replace(ref string str, List<string> listReplaceStr, string newStr)
         {
+            if (IsEmpty(str, false) || MyList.IsEmpty(listReplaceStr) || IsEmpty(newStr)) return;
+
             #region Items
-            int
-                lengthCurrentStr = currentStr.Length,
-                countListReplacestr = listReplaceStr.Count;
-
-            if (lengthCurrentStr == 0 || countListReplacestr == 0) return;
-
-            string newStr = currentStr;
+            int countListReplacestr = listReplaceStr.Count;
+            string _newStr = str;
             #endregion Items
 
-            for (int i = 0; i < countListReplacestr; i++) Replace(ref newStr, listReplaceStr[i], newValue);
+            for (int i = 0; i < countListReplacestr; i++) 
+                Replace(ref _newStr, listReplaceStr[i], newStr);
 
-            currentStr = newStr;
+            str = _newStr;
         }
         #endregion Replace
+
+        #region Puts
+        /// <summary>
+        /// Поставити рядок у формат
+        /// </summary>
+        /// <remarks>Приклад: <seealso href="https://raw.githubusercontent.com/blackByteGT/MyLibraries.MySystemLib.Net/main/Examples/MyString/Put-format.cs"/></remarks>
+        /// <param name="str">Поточний рядок</param>
+        /// <param name="format">Формат рядка</param>
+        /// <param name="formatChar">Спеціальний символ формату</param>
+        /// 
+        /// <translation xml:lang="en">
+        ///     <summary>
+        ///     Put the string in the format
+        ///     </summary>
+        ///     <remarks>Example: <seealso href="https://raw.githubusercontent.com/blackByteGT/MyLibraries.MySystemLib.Net/main/Examples/MyString/Put-format.cs"/></remarks>
+        ///     <param name="str">The current line</param>
+        ///     <param name="format">String format</param>
+        ///     <param name="formatChar">Special format symbol</param>
+        /// </translation>
+        static public void PutFormat(ref string str, string format, char formatChar = SymbolForFormat)
+        {
+            if (IsEmpty(str) || IsEmpty(format)) return;
+
+            #region Items
+            string newStr = "";
+
+            if (IsEntry(str, format, formatChar)) return;
+
+            int
+                indexForStr = 0,
+                lengthStr = str.Length,
+                lengthFormat = format.Length;
+            char currentChar = new char();
+            #endregion Items
+
+            for (int i = 0; i < lengthFormat && indexForStr < lengthStr; i++)
+            {
+                currentChar = format[i];
+
+                if (currentChar == formatChar)
+                {
+                    newStr += str[indexForStr++];
+
+                    continue;
+                }
+
+                newStr += currentChar;
+            }
+
+            str = newStr;
+        }
+        /// <summary>
+        /// Забрати формат з рядка
+        /// </summary>
+        /// <remarks>Приклад: <seealso href="https://raw.githubusercontent.com/blackByteGT/MyLibraries.MySystemLib.Net/main/Examples/MyString/Put-out-format.cs"/></remarks>
+        /// <param name="str">Поточний рядок</param>
+        /// <param name="format">Формат рядка</param>
+        /// <param name="formatChar">Спеціальний символ формату</param>
+        /// 
+        /// <translation xml:lang="en">
+        ///     <summary>
+        ///     Put out the format from the line
+        ///     </summary>
+        ///     <remarks>Example: <seealso href="https://raw.githubusercontent.com/blackByteGT/MyLibraries.MySystemLib.Net/main/Examples/MyString/Put-out-format.cs"/></remarks>
+        ///     <param name="str">The current line</param>
+        ///     <param name="format">String format</param>
+        ///     <param name="formatChar">Special format symbol</param>
+        /// </translation>
+        static public void PutOutFormat(ref string str, string format, char formatChar = SymbolForFormat)
+        {
+            if (IsEmpty(str) || IsEmpty(format)) return;
+
+            #region Items
+            string newStr = "";
+
+            if (!IsEntry(str, format, formatChar)) return;
+
+            int
+                lengthStr = str.Length,
+                lengthFormat = format.Length;
+            char
+                currentCharFormat = default,
+                currentCharStr = default;
+            #endregion Items
+
+            for (int i = 0; i < lengthStr && i < lengthFormat; i++)
+            {
+                currentCharStr = str[i];
+                currentCharFormat = format[i];
+
+                if (currentCharStr != currentCharFormat && currentCharFormat == formatChar)
+                    newStr += currentCharStr;
+            }
+
+            str = newStr;
+        }
+        #endregion Puts
+
+        #region Other
+        /// <summary>
+        /// Перевернути рядок
+        /// </summary>
+        /// <remarks>Приклад: <seealso href="https://raw.githubusercontent.com/blackByteGT/MyLibraries.MySystemLib.Net/main/Examples/MyString/Flip.cs"/></remarks>
+        /// <param name="str">Поточний рядок</param>
+        /// 
+        /// <translation xml:lang="en">
+        ///     <summary>
+        ///     Flip the string
+        ///     </summary>
+        ///     <remarks>Example: <seealso href="https://raw.githubusercontent.com/blackByteGT/MyLibraries.MySystemLib.Net/main/Examples/MyString/Flip.cs"/></remarks>
+        ///     <param name="str">Current the string</param>
+        /// </translation>
+        static public void Flip(ref string str)
+        {
+            if (IsEmpty(str)) return;
+
+            #region Items
+            int lengthStr = str.Length;
+            string newCurrentStr = "";
+            #endregion Items
+
+            for (int i = lengthStr - 1; !(i < 0); i--)
+                newCurrentStr += str[i];
+
+            str = newCurrentStr;
+        }
+        #endregion Other
         #endregion Functions
     }
 }
