@@ -11,6 +11,7 @@ namespace Examples
             result = MyString.IsEmpty("abcde");                     // false
             result = MyString.IsEmpty(null);                        // true
             result = MyString.IsEmpty(default);                     // true
+            
             result = MyString.IsEmpty("abcde", whiteSpace: true);   // false
             result = MyString.IsEmpty("   ", whiteSpace: true);     // true
 
